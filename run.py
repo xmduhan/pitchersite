@@ -43,4 +43,10 @@ while pitcher.isLogin():
     #print u'成功读取数据,等待5秒……'
     print u'read data successfully,waiting 5 seconds ... ...'
     time.sleep(5)
-    
+
+
+#select * from pitcher_ticketcountlog
+#where "departureTime" = '09:30'
+#  and "departure" = '邮轮中心厦鼓码头'
+#  and "arrival" = '三丘田码头'
+#  order by "logTime";
