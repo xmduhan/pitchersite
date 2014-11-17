@@ -40,6 +40,7 @@ while pitcher.isLogin():
         log.ticketCount = row[u'余票']
         log.flightId = row[u'航班ID']
         log.save()
-    print u'成功读取数据,等待5秒……'
+    #print u'成功读取数据,等待5秒……'
+    print u'read data successfully,waiting 5 seconds ... ...'
     time.sleep(5)
     
