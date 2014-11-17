@@ -13,7 +13,7 @@ class TicketCountLog(models.Model):
     departure = models.CharField(u'出发码头', max_length=100)
     arrival = models.CharField(u'抵达码头', max_length=100)
     flightCode = models.CharField(u'航班号', max_length=50)
-    departureTime = models.DateTimeField(u"开航时间")
+    departureTime = models.CharField(u"开航时间", max_length=50)
     price = models.FloatField(u'票价')
     ticketCount = models.IntegerField(u'余票')
     flightId = models.CharField(u'航班ID', max_length=50)
