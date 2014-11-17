@@ -1,0 +1,5 @@
+*.pyc
+*.bak
+.settings
+.idea
+sql.log
