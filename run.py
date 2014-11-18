@@ -10,19 +10,29 @@ import os
 import sys
 import time
 #path = r'E:\pydev\pitchersite' # 项目位置
-path = r'/home/wx/pydev/pitchersite' # 项目位置
+path = r'/home/wx/pydev/pitchersite'  # 项目位置
 settings = "pitchersite.settings"
-sys.path.append(path)   
+sys.path.append(path)
 os.chdir(path)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE",settings)
-from pitcher.models import TicketCountLog
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
+from pitcher.models import TicketCountLog, SystemLog
 from ticketpitcher import pitcher
 
 
 #%% 不停的刷新票的数量信息
 username = 'xmjf001'
 password = '123456'
-day = '2014-12-09'
+day = '2014-12-08'
+
+
+def writeSystemLog(msg):
+    '''
+    写入系统日志
+    '''
+    log = SystemLog()
+    log.logMsg = msg
+    log.save()
+
 
 #%%
 def loopPitcher():
@@ -41,19 +51,22 @@ def loopPitcher():
             log.flightId = row[u'航班ID']
             log.save()
         #print u'成功读取数据,等待5秒……'
-        print u'Read data successfully,waiting 5 seconds ... ...'
-        time.sleep(5)
+        #writeSystemLog(u'Read data successfully,waiting 5 seconds ... ...')
+        writeSystemLog(u'成功读取数据,等待3秒……')
+        time.sleep(3)
     else:
-        raise Exception(u'Login losted!Will relogin.')
+        raise Exception(u'登录信息丢失,将重新登录')
+
 
 #%%
 while True:
     try:
-        pitcher.login(username,password)
+        pitcher.login(username, password)
         loopPitcher()
-    except Exception as e :
-        print e
-    print u'Waiting 10 seconds ... ...'
+    except Exception as e:
+        writeSystemLog(u'出现异常:'+unicode(e))
+    #print u'Waiting 10 seconds ... ...'
+    writeSystemLog(u'等待10秒... ...')
     time.sleep(10)
 
 #%%

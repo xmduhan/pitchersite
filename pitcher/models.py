@@ -18,3 +18,10 @@ class TicketCountLog(models.Model):
     ticketCount = models.IntegerField(u'余票')
     flightId = models.CharField(u'航班ID', max_length=50)
 
+
+class SystemLog(models.Model):
+    '''
+    系统日志
+    '''
+    logTime = models.DateTimeField(u"日志时间", default=datetime.now)
+    logMsg = models.CharField(u'消息', max_length=500)
