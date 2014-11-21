@@ -22,7 +22,7 @@ from ticketpitcher import pitcher
 #%% 不停的刷新票的数量信息
 username = 'xmjf001'
 password = '123456'
-day = '2014-12-08'
+day = '2014-12-09'
 
 
 def writeSystemLog(msg):
