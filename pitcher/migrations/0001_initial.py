@@ -6,7 +6,6 @@ from django.db import models
 
 
 class Migration(SchemaMigration):
-
     def forwards(self, orm):
         # Adding model 'TicketCountLog'
         db.create_table(u'pitcher_ticketcountlog', (
@@ -16,7 +15,7 @@ class Migration(SchemaMigration):
             ('departure', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('arrival', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('flightCode', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('departureTime', self.gf('django.db.models.fields.DateTimeField')()),
+            ('departureTime', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('price', self.gf('django.db.models.fields.FloatField')()),
             ('ticketCount', self.gf('django.db.models.fields.IntegerField')()),
             ('flightId', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -34,7 +33,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'TicketCountLog'},
             'arrival': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'departure': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'departureTime': ('django.db.models.fields.DateTimeField', [], {}),
+            'departureTime': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'flightCode': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'flightId': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

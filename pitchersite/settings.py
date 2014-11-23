@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'pitcher'
+    'pitcher',
+    #'djcelery' 
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,7 +60,7 @@ WSGI_APPLICATION = 'pitchersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 
-development = True
+development = False
 
 if development:
     DATABASES = {
@@ -97,5 +98,7 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/wx/static'
+
+
