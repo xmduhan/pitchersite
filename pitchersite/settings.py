@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'initdata',
     'pitcher',
     #'djcelery',
 )
@@ -72,7 +73,7 @@ if development:
 else:
     DATABASES = {
         'default': {
-            'ENGINE':'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'pitcher',
             'USER': 'pitcher',
             'PASSWORD': 'pitcher123',
