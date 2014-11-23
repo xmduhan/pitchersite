@@ -9,22 +9,29 @@ Created on Mon Nov 17 20:03:38 2014
 import os
 import sys
 import time
-#path = r'E:\pydev\pitchersite' # 项目位置
-path = r'/home/wx/pydev/pitchersite'  # 项目位置
+from datetime import datetime,timedelta
+path = r'E:\pydev\pitchersite' # 项目位置
+#path = r'/home/wx/pydev/pitchersite'  # 项目位置
 settings = "pitchersite.settings"
 sys.path.append(path)
 os.chdir(path)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
-from pitcher.models import TicketCountLog, SystemLog
+from pitcher.models import TicketCountLog, SystemLog,SystemConfig
 from ticketpitcher import pitcher
+from django_pandas.io import read_frame
+
+#%% 读取信息信息
+#username = 'xmjf001'
+#password = '123456'
+#day = '2014-12-09'
+systemConfig = SystemConfig.objects.all()[0]
+username = systemConfig.username
+password = systemConfig.password
+date = datetime.now() + timedelta(systemConfig.preceding)
+day = datetime.strftime(date,"%Y-%m-%d")
 
 
-#%% 不停的刷新票的数量信息
-username = 'xmjf001'
-password = '123456'
-day = '2014-12-09'
-
-
+#%%
 def writeSystemLog(msg):
     '''
     写入系统日志
@@ -32,6 +39,29 @@ def writeSystemLog(msg):
     log = SystemLog()
     log.logMsg = msg
     log.save()
+
+
+def isLogin():
+    '''
+    检查当前是否已经登录
+    '''    
+    # 测试使用的脚本
+    return True
+    # 实际脚本
+    #return pitcher.isLogin()
+
+
+def getTicketInfo(day):
+    '''
+    按天获取船票的信息
+    day 日期格式为'yyyy-mm-dd'
+    '''
+    # 测试使用的脚本
+    df = read_frame(TicketCountLog.objects.all())
+    df.columns = [field.verbose_name for field in TicketCountLog._meta.fields]
+    return df.ix[:, 2:]
+    # 实际脚本
+    #return pitcher.getTicketInfo(day)
 
 
 #%%
@@ -64,7 +94,7 @@ while True:
         pitcher.login(username, password)
         loopPitcher()
     except Exception as e:
-        writeSystemLog(u'出现异常:'+unicode(e))
+        writeSystemLog(u'出现异常:' + unicode(e))
     #print u'Waiting 10 seconds ... ...'
     writeSystemLog(u'等待10秒... ...')
     time.sleep(10)
