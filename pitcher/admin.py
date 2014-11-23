@@ -16,7 +16,7 @@ class TicketCountLogAdmin(admin.ModelAdmin):
         'logTime', 'seq', 'departure', 'arrival', 'flightCode', 'departureTime', 'price', 'ticketCount', 'flightId')
 
 
-admin.site.register(TicketCountLog, TicketCountLogAdmin)
+#admin.site.register(TicketCountLog, TicketCountLogAdmin)
 
 
 class SystemLogAdmin(admin.ModelAdmin):
@@ -37,9 +37,9 @@ class SystemConfigAdmin(admin.ModelAdmin):
     全局配置
     '''
     fields = [
-        'username', 'password'
+        'username', 'password', 'preceding', 'working'
     ]
-    list_display = ( 'username', 'password')
+    list_display = ( 'username', 'password', 'preceding', 'working')
 
 
 admin.site.register(SystemConfig, SystemConfigAdmin)
@@ -56,4 +56,19 @@ class PitchConfigAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PitchConfig, PitchConfigAdmin)
+
+
+class PitchLogAdmin(admin.ModelAdmin):
+    '''
+    抢票记录
+    '''
+    fields = [
+        'pitchTime', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'pitchCount', 'ticketCount'
+    ]
+    list_display = (
+        'pitchTime', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'pitchCount', 'ticketCount'
+    )
+
+
+admin.site.register(PitchLog, PitchLogAdmin)
 

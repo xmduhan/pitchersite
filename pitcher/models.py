@@ -17,10 +17,10 @@ class TicketCountLog(models.Model):
     price = models.FloatField(u'票价')
     ticketCount = models.IntegerField(u'余票')
     flightId = models.CharField(u'航班ID', max_length=50)
+
     class Meta:
         verbose_name = "船票数量查询日志"
-        verbose_name_plural = "船票数量查询日志"
-
+        verbose_name_plural = "(05)船票数量查询日志"
 
 
 class SystemLog(models.Model):
@@ -29,9 +29,11 @@ class SystemLog(models.Model):
     '''
     logTime = models.DateTimeField(u"日志时间", default=datetime.now)
     logMsg = models.CharField(u'消息', max_length=500)
+
     class Meta:
         verbose_name = "系统日志"
-        verbose_name_plural = "系统日志"
+        verbose_name_plural = "(04)系统日志"
+
 
 class SystemConfig(models.Model):
     '''
@@ -39,17 +41,27 @@ class SystemConfig(models.Model):
     '''
     username = models.CharField(u'用户名', max_length=100)
     password = models.CharField(u'密码', max_length=100)
+    preceding = models.IntegerField(u'预抢天数', default=0)
+    working = models.BooleanField(u'启动', default=False)
+
+    class Meta:
+        verbose_name = "系统配置"
+        verbose_name_plural = "(01)系统配置"
 
 
 class PitchConfig(models.Model):
     '''
-    抢票配置表
+    抢票配置
     '''
     flightCode = models.CharField(u'航班号', max_length=50)
     departure = models.CharField(u'出发码头', max_length=100)
     arrival = models.CharField(u'抵达码头', max_length=100)
     departureTime = models.CharField(u"开航时间", max_length=50)
     need = models.IntegerField(u'需票数', default=0)
+
+    class Meta:
+        verbose_name = "抢票配置"
+        verbose_name_plural = "(02)抢票配置"
 
 
 class PitchLog(models.Model):
@@ -64,5 +76,9 @@ class PitchLog(models.Model):
     departureTime = models.CharField(u"开航时间", max_length=50)
     pitchCount = models.IntegerField(u'抢到票数')
     ticketCount = models.IntegerField(u'余票')
+
+    class Meta:
+        verbose_name = "抢票记录"
+        verbose_name_plural = "(03)抢票记录"
 
 
