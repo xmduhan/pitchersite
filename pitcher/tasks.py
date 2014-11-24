@@ -28,19 +28,56 @@ def writeSystemLog(msg):
 
 #------------------------------------------------------------------------------
 #%% 测试使用方法调用
+#
+# def isLogin():
+#     '''
+#     检查当前是否已经登录
+#     '''
+#     time.sleep(1)
+#     return True
+#
+#
+# def login(username, password):
+#     '''
+#     登录
+#     '''
+#     time.sleep(1)
+#     return True
+#
+#
+# def getTicketInfo(day):
+#     '''
+#     按天获取船票的信息
+#     day 日期格式为'yyyy-mm-dd'
+#     '''
+#     time.sleep(1)
+#     df = read_frame(TicketCountLog.objects.all())
+#     df.columns = [field.verbose_name for field in TicketCountLog._meta.fields]
+#     return df.ix[:, 2:]
+#
+#
+# def orderTicket(dailyFlightId, n):
+#     '''
+#     测试
+#     '''
+#     time.sleep(1)
+#     return True
+#------------------------------------------------------------------------------
+
+#%% 实际使用方法调用
 
 def isLogin():
     '''
     检查当前是否已经登录
     '''
-    return True
+    return pitcher.isLogin()
 
 
 def login(username, password):
     '''
     登录
     '''
-    return True
+    return pitcher.login(username, password)
 
 
 def getTicketInfo(day):
@@ -48,63 +85,17 @@ def getTicketInfo(day):
     按天获取船票的信息
     day 日期格式为'yyyy-mm-dd'
     '''
-    df = read_frame(TicketCountLog.objects.all())
-    df.columns = [field.verbose_name for field in TicketCountLog._meta.fields]
-    return df.ix[:, 2:]
+    return pitcher.getTicketInfo(day)
 
 
 def orderTicket(dailyFlightId, n):
     '''
-    测试
+    订票
     '''
-    return True
+    return pitcher.orderTicket(dailyFlightId, n)
 
 
 #------------------------------------------------------------------------------
-
-#%% 实际使用方法调用
-#
-#def isLogin():
-#    '''
-#    检查当前是否已经登录
-#    '''       
-#    return pitcher.isLogin()
-#
-#
-#def login(username,password):
-#    '''
-#    登录
-#    '''
-#    return pitcher.login(username, password)
-#def getTicketInfo(day):
-#    '''
-#    按天获取船票的信息
-#    day 日期格式为'yyyy-mm-dd'
-#    '''
-#    # 实际脚本
-#    return pitcher.getTicketInfo(day)
-#
-#
-#def orderTicket(dailyFlightId,n):
-#    '''
-#    订票
-#    '''
-#    return pitcher.orderTicket(dailyFlightId,n)
-
-#------------------------------------------------------------------------------
-
-#%% 设置全局变量
-normalWaitingSecond = 1
-errorWaitingSecond = 3
-maxLoginTry = 5
-timeToStop = '12:00'
-# 读取信息信息
-systemConfig = SystemConfig.objects.all()[0]
-username = systemConfig.username
-password = systemConfig.password
-date = datetime.now() + timedelta(systemConfig.preceding)
-day = datetime.strftime(date, "%Y-%m-%d")
-
 
 #%%
 
@@ -125,7 +116,7 @@ def getTicketRemain(ticketInfo, flightCode):
     '''
     df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
     if len(df.index) > 0:
-        return df.irow(0)[u'余票']
+        return int(df.irow(0)[u'余票'])
     else:
         return 0
 
@@ -138,12 +129,26 @@ def getDailyFlightId(ticketInfo, flightCode):
     '''
     df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
     if len(df.index) > 0:
-        return df.irow(0)[u'航班ID']
+        return int(df.irow(0)[u'航班ID'])
     else:
         return None
 
-#%%
-ticketInfo = getTicketInfo('')
+
+#%% 设置全局变量
+normalWaitingSecond = 2
+errorWaitingSecond = 5
+maxLoginError = 5
+maxException = 10
+timeToStop = '12:00'
+# 读取信息信息
+systemConfig = SystemConfig.objects.all()[0]
+username = systemConfig.username
+password = systemConfig.password
+working = systemConfig.working
+date = datetime.now() + timedelta(systemConfig.preceding)
+day = datetime.strftime(date, "%Y-%m-%d")
+pitchConfig = getPitchConfig()
+
 #%%
 def pitchLoop():
     '''
@@ -155,12 +160,12 @@ def pitchLoop():
         ticketInfo = getTicketInfo(day)
         if len(ticketInfo.index):
             # 已经放票了,根据配置数据开始顺序进行抢票
-            writeSystemLog(u'系统已经放票，开始要抢票...')
-            pitchConfig = getPitchConfig()
+            writeSystemLog(u'系统已经放票，准备开始抢票...')
             for i in range(len(pitchConfig.index)):
+                config = pitchConfig.irow(i)
                 # 读取当前记录要抢的航班号和需票信息
-                flightCode = pitchConfig['flightCode']
-                need = pitchConfig['need']
+                flightCode = config['flightCode']
+                need = config['need']
                 ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
                 writeSystemLog(ItemMessage + u'开始!')
                 # 读取票数剩余
@@ -180,6 +185,7 @@ def pitchLoop():
                     n = remain
                 else:
                     n = need
+                #writeSystemLog(ItemMessage + u'dailyFlightId:%s' % dailyFlightId)
                 pitchResult = orderTicket(dailyFlightId, n)
                 if pitchResult:
                     # 抢票成功
@@ -203,13 +209,20 @@ def pitchLoop():
 
 
 #%%
-
 def pitcherTask():
     '''
     抢票程序主过程
     '''
     writeSystemLog(u'程序开始执行!')
+    # 判断刷票开关是否开启，如果没有开启则退出
+    if not working:
+        writeSystemLog(u'刷票配置未启动，程序将退出!')
+        writeSystemLog(u'程序执行结束!')
+        return
+
+    # 开始刷票
     loginErrorCount = 0
+    ExceptionCount = 0
     pitchLoopResult = True
     while pitchLoopResult:
         try:
@@ -221,8 +234,8 @@ def pitcherTask():
                 pitchLoopResult = pitchLoop()
             else:
                 loginErrorCount += 1
-                if loginErrorCount > maxLoginTry:
-                    writeSystemLog(u'登录失败超过%d次，程序退出！' % maxLoginTry)
+                if loginErrorCount > maxLoginError:
+                    writeSystemLog(u'登录失败超过%d次，程序退出!' % maxLoginError)
                     return
                 else:
                     writeSystemLog(u'登录失败!')
@@ -230,9 +243,14 @@ def pitcherTask():
                     time.sleep(errorWaitingSecond)
         except Exception as e:
             writeSystemLog(u'出现异常:' + unicode(e))
+            ExceptionCount += 1
+            if ExceptionCount > maxException:
+                writeSystemLog(u'抛出异常超过%d次，程序将退出!' % maxException)
+                break
             writeSystemLog(u'等待%s秒... ...' % errorWaitingSecond)
             time.sleep(errorWaitingSecond)
-    writeSystemLog(u'程序执行结束！' % maxLoginTry)
+
+    writeSystemLog(u'程序执行结束!')
 
 
 
