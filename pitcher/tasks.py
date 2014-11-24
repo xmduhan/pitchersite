@@ -6,19 +6,12 @@ Created on Mon Nov 17 20:03:38 2014
 """
 
 #%%
-import os
-import sys
 import time
 from datetime import datetime,timedelta
-path = r'E:\pydev\pitchersite' # 项目位置
-#path = r'/home/wx/pydev/pitchersite'  # 项目位置
-settings = "pitchersite.settings"
-sys.path.append(path)
-os.chdir(path)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
-from pitcher.models import TicketCountLog, SystemLog,SystemConfig
 from ticketpitcher import pitcher
 from django_pandas.io import read_frame
+from pitcher.models import TicketCountLog, SystemLog,SystemConfig
+
 
 #%% 读取信息信息
 #username = 'xmjf001'
