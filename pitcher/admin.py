@@ -76,10 +76,12 @@ class PitchLogAdmin(admin.ModelAdmin):
     抢票记录
     '''
     fields = [
-        'pitchTime', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'pitchCount', 'ticketCount'
+        'pitchTime', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
+        'ticketCount'
     ]
     list_display = (
-        'pitchTime', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'pitchCount', 'ticketCount'
+        'pitchTime', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
+        'ticketCount'
     )
 
 
