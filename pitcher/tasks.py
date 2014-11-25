@@ -187,6 +187,34 @@ def pitchItem(ticketInfo, flightCode, need):
         return 0
 
 
+def savePitchLog(ticketInfo, flightCode, need, pitchResult):
+    '''
+    保存抢票记录信息
+    ticketInfo   最新的船票信息数据集
+    flightCode   航班号
+    need         需票数
+    pitchResult  实际抢票数量
+    '''
+    # 记录本次抢票结果
+    pitchLog = PitchLog()
+    pitchLog.flightCode = flightCode
+    pitchLog.need = need
+    pitchLog.pitchCount = pitchResult
+    df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+    if len(df.index) > 0:
+        row = df.irow(0)
+        pitchLog.flightId = row[u'航班ID']
+        pitchLog.departure = row[u'出发码头']
+        pitchLog.arrival = row[u'抵达码头']
+        pitchLog.departureTime = row[u'开航时间']
+        pitchLog.ticketCount = row[u'余票']
+    else:
+        ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
+        writeSystemLog(ItemMessage + u'无法获取余票及航班相关信息!')
+    # 保存抢票日志
+    pitchLog.save()
+
+
 def pitchLoop():
     '''
     刷票主循环过程
@@ -206,12 +234,7 @@ def pitchLoop():
                 ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
                 # 调用抢票接口
                 pitchResult = pitchItem(ticketInfo, flightCode, need)
-                # 记录本次抢票结果
-                pitchLog = PitchLog()
-                pitchLog.flightCode = flightCode
-                pitchLog.need = need
-                pitchLog.pitchCount = pitchResult
-                # 将票结果记录日志
+                # 将抢票结果反映在系统日志中
                 if pitchResult > 0:
                     # 抢票成功
                     writeSystemLog(ItemMessage + u'抢票成功!!!')
@@ -220,18 +243,9 @@ def pitchLoop():
                     writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项!')
                 # 刷新余票信息(顺带获取航班的一些基本信息，本来应该在前面取的，但是合并在这里比较方便，且无伤大雅)
                 ticketInfo = getTicketInfo(day)
-                df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
-                if len(df.index) > 0:
-                    row = df.irow(0)
-                    pitchLog.flightId = row[u'航班ID']
-                    pitchLog.departure = row[u'出发码头']
-                    pitchLog.arrival = row[u'抵达码头']
-                    pitchLog.departureTime = row[u'开航时间']
-                    pitchLog.ticketCount = row[u'余票']
-                else:
-                    writeSystemLog(ItemMessage + u'无法获取余票及航班相关信息!')
-                # 保存抢票日志
-                pitchLog.save()
+                # 保存抢票结果记录信息
+                savePitchLog(ticketInfo, flightCode, need, pitchResult)
+
             # 执行过抢票程序任务完成
             writeSystemLog(u'已完成刷票动作，将停止执行!')
             return False  #返回False表示程序应该终止
