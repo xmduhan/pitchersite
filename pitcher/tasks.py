@@ -11,9 +11,7 @@ from datetime import datetime, timedelta
 from ticketpitcher import pitcher
 from django_pandas.io import read_frame
 from pitcher.models import *
-
-
-
+from pandas import DataFrame
 
 
 #%% 日志
@@ -108,9 +106,9 @@ def getPitchConfig():
     data = []
     for pitchConfig in PitchConfig.objects.filter(need__gt=0):
         flight = pitchConfig.flight
-        data.append([flight.flightCode,pitchConfig.need])
-        
-    return DataFrame(data,columns=['flightCode', 'need'])   
+        data.append([flight.flightCode, pitchConfig.need])
+
+    return DataFrame(data, columns=['flightCode', 'need'])
 
 
 #%%
@@ -230,8 +228,9 @@ def pitchLoop():
     while isLogin():
         ticketInfo = getTicketInfo(day)
         if len(ticketInfo.index):
-            # 已经放票了,根据配置数据开始顺序进行抢票
+            ### 已经放票了,根据配置数据开始顺序进行抢票 ###
             writeSystemLog(u'系统已经放票，准备开始抢票...')
+            resultList = []
             for i in range(len(pitchConfig.index)):
                 config = pitchConfig.irow(i)
                 # 读取当前记录要抢的航班号和需票信息
@@ -247,14 +246,19 @@ def pitchLoop():
                 else:
                     # 抢票失败
                     writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项.')
-                # 刷新余票信息(顺带获取航班的一些基本信息，本来应该在前面取的，但是合并在这里比较方便，且无伤大雅)
-                ticketInfo = getTicketInfo(day)
-                # 保存抢票结果记录信息
-                savePitchLog(ticketInfo, flightCode, need, pitchResult)
+                # 将结果记录列表抢票结束后统一保存（加快速度）
+                resultList.append({'flightCode': flightCode, 'need': need, 'pitchResult': pitchResult})
+            ### 保存抢票结果信息 ###
+            # 重新读取余票信息
+            ticketInfo = getTicketInfo(day)
+            # 保存抢票结果记录信息
+            for result in resultList:
+                savePitchLog(ticketInfo, result['flightCode'], result['need'], result['pitchResult'])
 
-            # 执行过抢票程序任务完成
+            ### 执行过抢票程序任务完成 ###
             writeSystemLog(u'已完成刷票动作，将停止执行.')
             return False  #返回False表示程序应该终止
+
         # 刷新完毕等待一段时间
         writeSystemLog(u'完成一次刷新，将等待%d秒...' % normalWaitingSecond)
         time.sleep(normalWaitingSecond)
