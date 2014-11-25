@@ -50,12 +50,25 @@ class PitchConfigAdmin(admin.ModelAdmin):
     抢票配置
     '''
     fields = [
-        'flightCode', 'departure', 'arrival', 'departureTime', 'need'
+        'flight', 'need', 'priority'
     ]
-    list_display = ('flightCode', 'departure', 'arrival', 'departureTime', 'need')
+    list_display = ('flight', 'need', 'priority')
 
 
 admin.site.register(PitchConfig, PitchConfigAdmin)
+
+
+class FlightConfigAdmin(admin.ModelAdmin):
+    '''
+    航班配置
+    '''
+    fields = [
+        'flightCode', 'departure', 'arrival', 'departureTime'
+    ]
+    list_display = ('flightCode', 'departure', 'arrival', 'departureTime')
+
+
+admin.site.register(FlightConfig, FlightConfigAdmin)
 
 
 class PitchLogAdmin(admin.ModelAdmin):

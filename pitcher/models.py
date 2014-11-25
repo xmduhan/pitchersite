@@ -49,19 +49,41 @@ class SystemConfig(models.Model):
         verbose_name_plural = "(01)系统配置"
 
 
-class PitchConfig(models.Model):
+class FlightConfig(models.Model):
     '''
-    抢票配置
+    航班配置
     '''
     flightCode = models.CharField(u'航班号', max_length=50)
     departure = models.CharField(u'出发码头', max_length=100)
     arrival = models.CharField(u'抵达码头', max_length=100)
     departureTime = models.CharField(u"开航时间", max_length=50)
+
+    def __unicode__(self):
+        return u'%s(%s-->%s:%s)' % (self.flightCode, self.departure, self.arrival, self.departureTime)
+
+
+    class Meta:
+        verbose_name = "航班配置"
+        verbose_name_plural = "(05)航班配置"
+        ordering = ['flightCode']
+
+
+class PitchConfig(models.Model):
+    '''
+    抢票配置
+    '''
+    #flightCode = models.CharField(u'航班号', max_length=50)
+    #departure = models.CharField(u'出发码头', max_length=100)
+    #arrival = models.CharField(u'抵达码头', max_length=100)
+    #departureTime = models.CharField(u"开航时间", max_length=50)
+    flight = models.ForeignKey(FlightConfig, verbose_name=u'航班', null=True, blank=True, default=None)
     need = models.IntegerField(u'需票数', default=0)
+    priority = models.IntegerField(u'优先级', default=0)
 
     class Meta:
         verbose_name = "抢票配置"
         verbose_name_plural = "(02)抢票配置"
+        ordering = ['priority','-need']
 
 
 class PitchLog(models.Model):

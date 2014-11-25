@@ -102,9 +102,15 @@ def orderTicket(dailyFlightId, n):
 def getPitchConfig():
     '''
     获取要抢票的配置
-    返回DataFrame数据集,注意数据已按优先级排好顺序
+    返回DataFrame数据集,数据已按优先级排好顺序
+    注意：排序规则在数据模型PitchConfig中的ordering定义的
     '''
-    return read_frame(PitchConfig.objects.filter(need__gt=0))[['flightCode', 'need']]
+    data = []
+    for pitchConfig in PitchConfig.objects.filter(need__gt=0):
+        flight = pitchConfig.flight
+        data.append([flight.flightCode,pitchConfig.need])
+        
+    return DataFrame(data,columns=['flightCode', 'need'])   
 
 
 #%%
@@ -161,21 +167,21 @@ def pitchItem(ticketInfo, flightCode, need):
     成功返回实际抢票数量，失败返回0
     '''
     ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
-    writeSystemLog(ItemMessage + u'开始!')
+    writeSystemLog(ItemMessage + u'开始...')
     # 读取票数剩余
     remain = getTicketRemain(ticketInfo, flightCode)
     # 如果该航班没有票跳过
     if remain == 0:
-        writeSystemLog(ItemMessage + u'已无余票!')
+        writeSystemLog(ItemMessage + u'已无余票.')
         return 0
     # 获取dailyFlightId
     dailyFlightId = getDailyFlightId(ticketInfo, flightCode)
     if dailyFlightId == None:
-        writeSystemLog(ItemMessage + u'无法获取航班Id!')
+        writeSystemLog(ItemMessage + u'无法获取航班Id.')
         return 0
     # 如果需票数小于实际剩余按实际票数抢
     if need > remain:
-        writeSystemLog(ItemMessage + u'余票不足，按实际票数抢!')
+        writeSystemLog(ItemMessage + u'余票不足，按实际票数抢.')
         n = remain
     else:
         n = need
@@ -210,7 +216,7 @@ def savePitchLog(ticketInfo, flightCode, need, pitchResult):
         pitchLog.ticketCount = row[u'余票']
     else:
         ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
-        writeSystemLog(ItemMessage + u'无法获取余票及航班相关信息!')
+        writeSystemLog(ItemMessage + u'无法获取余票及航班相关信息.')
     # 保存抢票日志
     pitchLog.save()
 
@@ -237,27 +243,27 @@ def pitchLoop():
                 # 将抢票结果反映在系统日志中
                 if pitchResult > 0:
                     # 抢票成功
-                    writeSystemLog(ItemMessage + u'抢票成功!!!')
+                    writeSystemLog(ItemMessage + u'抢票成功!')
                 else:
                     # 抢票失败
-                    writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项!')
+                    writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项.')
                 # 刷新余票信息(顺带获取航班的一些基本信息，本来应该在前面取的，但是合并在这里比较方便，且无伤大雅)
                 ticketInfo = getTicketInfo(day)
                 # 保存抢票结果记录信息
                 savePitchLog(ticketInfo, flightCode, need, pitchResult)
 
             # 执行过抢票程序任务完成
-            writeSystemLog(u'已完成刷票动作，将停止执行!')
+            writeSystemLog(u'已完成刷票动作，将停止执行.')
             return False  #返回False表示程序应该终止
         # 刷新完毕等待一段时间
         writeSystemLog(u'完成一次刷新，将等待%d秒...' % normalWaitingSecond)
         time.sleep(normalWaitingSecond)
         # 检查当前时间是否超过中午12点，如果超过停止刷票
         if datetime.strftime(datetime.now(), "%H:%M") >= timeToStop:
-            writeSystemLog(u'程序已执行到执行时间(%s),将停止执行!' % timeToStop)
+            writeSystemLog(u'程序已执行到执行时间(%s),将停止执行.' % timeToStop)
             return False  #返回False表示程序应该终止
     # 程序到这里表示登录信息已经丢失
-    writeSystemLog(u'登录信息丢失将尝试重新登录!')
+    writeSystemLog(u'登录信息丢失将尝试重新登录.')
     return True
 
 
@@ -266,11 +272,11 @@ def pitcherTask():
     '''
     抢票程序主过程
     '''
-    writeSystemLog(u'程序开始执行!')
+    writeSystemLog(u'程序开始执行...')
     # 判断刷票开关是否开启，如果没有开启则退出
     if not working:
-        writeSystemLog(u'刷票配置未启动，程序将退出!')
-        writeSystemLog(u'程序执行结束!')
+        writeSystemLog(u'刷票配置未启动，程序将退出.')
+        writeSystemLog(u'程序执行结束.')
         return
 
     # 开始刷票
