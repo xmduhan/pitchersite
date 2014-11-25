@@ -74,6 +74,7 @@ class PitchLog(models.Model):
     departure = models.CharField(u'出发码头', max_length=100)
     arrival = models.CharField(u'抵达码头', max_length=100)
     departureTime = models.CharField(u"开航时间", max_length=50)
+    need = models.IntegerField(u'需票数', default=0)
     pitchCount = models.IntegerField(u'抢到票数')
     ticketCount = models.IntegerField(u'余票')
 
