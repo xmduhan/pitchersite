@@ -248,6 +248,7 @@ def pitchLoop():
                     writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项.')
                 # 将结果记录列表抢票结束后统一保存（加快速度）
                 resultList.append({'flightCode': flightCode, 'need': need, 'pitchResult': pitchResult})
+
             ### 保存抢票结果信息 ###
             # 重新读取余票信息
             ticketInfo = getTicketInfo(day)
