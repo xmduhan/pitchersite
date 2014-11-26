@@ -14,14 +14,28 @@ from pitcher.models import *
 from pandas import DataFrame
 
 
+#%%
+def writeFileLog(msg):
+    '''
+    写日志到文件
+    '''
+    logFormat = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S") + u' : %s\n'
+    logMsg = logFormat % msg
+    with open('pitcher.log', 'a') as f:
+        f.write(logMsg.encode('utf-8'))
+
+
 #%% 日志
 def writeSystemLog(msg):
     '''
     写入系统日志
     '''
+    # 将信息写到数据库日志中    
     log = SystemLog()
     log.logMsg = msg
     log.save()
+    # 同时写到文件日志中
+    writeFileLog(msg)
 
 
 #------------------------------------------------------------------------------
