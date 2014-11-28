@@ -84,6 +84,8 @@ class PitchLogAdmin(admin.ModelAdmin):
         'ticketCount'
     )
 
+    date_hierarchy = 'pitchTime'
+
 
 admin.site.register(PitchLog, PitchLogAdmin)
 
