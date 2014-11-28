@@ -83,7 +83,7 @@ class PitchConfig(models.Model):
     class Meta:
         verbose_name = "抢票配置"
         verbose_name_plural = "(02)抢票配置"
-        ordering = ['priority','-need']
+        ordering = ['priority', '-need']
 
 
 class PitchLog(models.Model):
@@ -103,5 +103,11 @@ class PitchLog(models.Model):
     class Meta:
         verbose_name = "抢票记录"
         verbose_name_plural = "(03)抢票记录"
+
+    def pitchMonth(self):
+        return datetime.strftime(self.pitchTime, '%Y-%m')
+
+    def pitchDay(self):
+        return datetime.strftime(self.pitchTime, '%Y-%m-%d')
 
 
