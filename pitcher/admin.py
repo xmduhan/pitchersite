@@ -85,6 +85,8 @@ class PitchLogAdmin(admin.ModelAdmin):
     )
 
     date_hierarchy = 'pitchTime'
+    list_filter=["pitchTime"]
+    search_fields=["pitchTime"]
 
 
 admin.site.register(PitchLog, PitchLogAdmin)
