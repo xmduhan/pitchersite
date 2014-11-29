@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'pitchersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 
-development = True
+development = False
 
 if development:
     DATABASES = {
@@ -96,7 +96,6 @@ USE_L10N = True
 
 USE_TZ = False
 
-DATETIME_FORMAT =  'Y-m-d H:i:s'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
