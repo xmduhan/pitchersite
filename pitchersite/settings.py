@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'pitchersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 
-development = False
+development = True
 
 if development:
     DATABASES = {
