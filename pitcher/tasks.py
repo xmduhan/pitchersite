@@ -13,18 +13,6 @@ from django_pandas.io import read_frame
 from pitcher.models import *
 from pandas import DataFrame
 
-
-#%%
-def writeFileLog(msg):
-    '''
-    写日志到文件
-    '''
-    logFormat = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S") + u' : %s\n'
-    logMsg = logFormat % msg
-    with open('pitcher.log', 'a') as f:
-        f.write(logMsg.encode('utf-8'))
-
-
 #%% 日志
 def writeSystemLog(msg):
     '''
@@ -34,49 +22,7 @@ def writeSystemLog(msg):
     log = SystemLog()
     log.logMsg = msg
     log.save()
-    # 同时写到文件日志中
-    writeFileLog(msg)
 
-
-#------------------------------------------------------------------------------
-#%% 测试使用方法调用
-#
-# def isLogin():
-#     '''
-#     检查当前是否已经登录
-#     '''
-#     time.sleep(1)
-#     return True
-#
-#
-# def login(username, password):
-#     '''
-#     登录
-#     '''
-#     time.sleep(1)
-#     return True
-#
-#
-# def getTicketInfo(day):
-#     '''
-#     按天获取船票的信息
-#     day 日期格式为'yyyy-mm-dd'
-#     '''
-#     time.sleep(1)
-#     df = read_frame(TicketCountLog.objects.all())
-#     df.columns = [field.verbose_name for field in TicketCountLog._meta.fields]
-#     return df.ix[:, 2:]
-#
-#
-# def orderTicket(dailyFlightId, n):
-#     '''
-#     测试
-#     '''
-#     time.sleep(1)
-#     return True
-#------------------------------------------------------------------------------
-
-#%% 实际使用方法调用
 
 def isLogin():
     '''
