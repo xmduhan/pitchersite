@@ -36,6 +36,7 @@ class PitchTask():
         self.day = datetime.strftime(date, "%Y-%m-%d")
         self.pitchConfig = self.getPitchConfig()
 
+
     def getPitchConfig(self):
         '''
         获取要抢票的配置
@@ -43,7 +44,7 @@ class PitchTask():
         注意：排序规则在数据模型PitchConfig中的ordering定义的
         '''
         data = []
-        for pitchConfig in PitchConfig.objects.filter(need__gt=0, pitcher=pitcher):
+        for pitchConfig in PitchConfig.objects.filter(need__gt=0, pitcher=self.pitcher):
             flight = pitchConfig.flight
             data.append([flight.flightCode, pitchConfig.need])
         return DataFrame(data, columns=['flightCode', 'need'])
