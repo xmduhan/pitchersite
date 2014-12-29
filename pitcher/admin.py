@@ -24,10 +24,10 @@ class SystemLogAdmin(admin.ModelAdmin):
     系统日志
     '''
     fields = [
-        'pitcher', 'logTime', 'logMsg'
+        'task', 'logTime', 'logMsg'
     ]
-    list_display = ('pitcher', 'logTime', 'logMsg')
-    list_filter=["pitcher"]
+    list_display = ('task', 'logTime', 'logMsg')
+    list_filter=["task"]
 
 
 admin.site.register(SystemLog, SystemLogAdmin)
@@ -47,17 +47,17 @@ class SystemConfigAdmin(admin.ModelAdmin):
 admin.site.register(SystemConfig, SystemConfigAdmin)
 
 
-class PitcherAdmin(admin.ModelAdmin):
+class TaskAdmin(admin.ModelAdmin):
     '''
     抢票配置
     '''
     fields = [
-        'pitcherName','username', 'password', 'working'
+        'taskName','username', 'password', 'working'
     ]
-    list_display = ('pitcherName','username', 'working')
+    list_display = ('taskName','username', 'working')
 
 
-admin.site.register(Pitcher, PitcherAdmin)
+admin.site.register(Task, TaskAdmin)
 
 
 class PitchConfigAdmin(admin.ModelAdmin):
@@ -65,10 +65,10 @@ class PitchConfigAdmin(admin.ModelAdmin):
     抢票配置
     '''
     fields = [
-        'pitcher', 'flight', 'need', 'priority'
+        'task', 'flight', 'need', 'priority'
     ]
-    list_display = ('pitcher', 'flight', 'need', 'priority')
-    list_filter=["pitcher"]
+    list_display = ('task', 'flight', 'need', 'priority')
+    list_filter=["task"]
 
 admin.site.register(PitchConfig, PitchConfigAdmin)
 
@@ -91,14 +91,14 @@ class PitchLogAdmin(admin.ModelAdmin):
     抢票记录
     '''
     fields = [
-        'pitchTime', 'pitcher', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
+        'pitchTime', 'task', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
         'ticketCount'
     ]
     list_display = (
-        'pitchTime', 'pitcher', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
+        'pitchTime', 'task', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
         'ticketCount'
     )
-    list_filter=["pitcher"]
+    list_filter=["task"]
 
     date_hierarchy = 'pitchTime'
     #list_filter=["pitchMonth"]

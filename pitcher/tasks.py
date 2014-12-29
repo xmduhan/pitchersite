@@ -18,7 +18,7 @@ class PitchTask():
     抢票任务
     '''
 
-    def __init__(self, pitcherName):
+    def __init__(self, taskName):
         #%% 设置全局变量
         systemConfig = SystemConfig.objects.all()[0]
         self.normalWaitingSecond = systemConfig.normalWaitingSecond
@@ -27,11 +27,11 @@ class PitchTask():
         self.maxException = systemConfig.maxException
         self.timeToStop = systemConfig.timeToStop
         # 读取信息信息
-        pitcher = Pitcher.objects.get(pitcherName=pitcherName)
-        self.pitcher = pitcher
-        self.username = pitcher.username
-        self.password = pitcher.password
-        self.working = pitcher.working
+        task = Task.objects.get(taskName=taskName)
+        self.task = task
+        self.username = task.username
+        self.password = task.password
+        self.working = task.working
         date = datetime.now() + timedelta(systemConfig.preceding)
         self.day = datetime.strftime(date, "%Y-%m-%d")
         self.pitchConfig = self.getPitchConfig()
@@ -44,7 +44,7 @@ class PitchTask():
         注意：排序规则在数据模型PitchConfig中的ordering定义的
         '''
         data = []
-        for pitchConfig in PitchConfig.objects.filter(need__gt=0, pitcher=self.pitcher):
+        for pitchConfig in PitchConfig.objects.filter(need__gt=0, task=self.task):
             flight = pitchConfig.flight
             data.append([flight.flightCode, pitchConfig.need])
         return DataFrame(data, columns=['flightCode', 'need'])
@@ -56,7 +56,7 @@ class PitchTask():
         # 将信息写到数据库日志中
         log = SystemLog()
         log.logMsg = msg
-        log.pitcher = self.pitcher
+        log.task = self.task
         log.save()
 
 
@@ -160,7 +160,7 @@ class PitchTask():
         '''
         # 记录本次抢票结果
         pitchLog = PitchLog()
-        pitchLog.pitcher = self.pitcher
+        pitchLog.task = self.task
         pitchLog.flightCode = flightCode
         pitchLog.need = need
         pitchLog.pitchCount = pitchResult
