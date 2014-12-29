@@ -7,9 +7,11 @@ class Task(models.Model):
     '''
     任务
     '''
+    TASK_TYPE = ( ('pitch', u'抢票'), ('refresh', u'刷新'))
     taskName = models.CharField(u'任务名', max_length=100)
     username = models.CharField(u'用户名', max_length=100)
     password = models.CharField(u'密码', max_length=100)
+    type = models.CharField(u'任务类型', choices=TASK_TYPE, max_length=10, default='pitch')
     working = models.BooleanField(u'启动', default=False)
 
     class Meta:
@@ -18,7 +20,8 @@ class Task(models.Model):
         ordering = ['taskName']
 
     def __unicode__(self):
-        return u'%s(%s)' % (self.taskName, self.username)
+        typeName = dict(Task._meta.get_field_by_name('type')[0].choices)[self.type]
+        return u'%s(%s,%s)' % (self.taskName, typeName, self.username)
 
 
 class SystemLog(models.Model):

@@ -27,7 +27,7 @@ class SystemLogAdmin(admin.ModelAdmin):
         'task', 'logTime', 'logMsg'
     ]
     list_display = ('task', 'logTime', 'logMsg')
-    list_filter=["task"]
+    list_filter = ["task"]
 
 
 admin.site.register(SystemLog, SystemLogAdmin)
@@ -52,9 +52,9 @@ class TaskAdmin(admin.ModelAdmin):
     抢票配置
     '''
     fields = [
-        'taskName','username', 'password', 'working'
+        'taskName', 'username', 'password', 'type', 'working'
     ]
-    list_display = ('taskName','username', 'working')
+    list_display = ('taskName', 'username', 'type', 'working')
 
 
 admin.site.register(Task, TaskAdmin)
@@ -68,7 +68,8 @@ class PitchConfigAdmin(admin.ModelAdmin):
         'task', 'flight', 'need', 'priority'
     ]
     list_display = ('task', 'flight', 'need', 'priority')
-    list_filter=["task"]
+    list_filter = ["task"]
+
 
 admin.site.register(PitchConfig, PitchConfigAdmin)
 
@@ -98,7 +99,7 @@ class PitchLogAdmin(admin.ModelAdmin):
         'pitchTime', 'task', 'flightId', 'flightCode', 'departure', 'arrival', 'departureTime', 'need', 'pitchCount',
         'ticketCount'
     )
-    list_filter=["task"]
+    list_filter = ["task"]
 
     date_hierarchy = 'pitchTime'
     #list_filter=["pitchMonth"]
