@@ -301,6 +301,16 @@ class RefreshTask():
         self.password = task.password
         self.working = task.working
 
+    def writeSystemLog(self, msg):
+        '''
+        写入系统日志
+        '''
+        # 将信息写到数据库日志中
+        log = SystemLog()
+        log.logMsg = msg
+        log.task = self.task
+        log.save()
+
     def isLogin(self):
         '''
         检查当前是否已经登录
