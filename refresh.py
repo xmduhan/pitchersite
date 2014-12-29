@@ -9,7 +9,7 @@ sys.path.append(path)
 os.chdir(path)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
 
-from pitcher.tasks import PitchTask
+from pitcher.tasks import RefreshTask
 
 #%%
 def main():
@@ -17,9 +17,9 @@ def main():
     主过程
     '''
     if len(sys.argv) != 2:
-        print 'Use "python pitcher.py workername" To Start This Script. '
+        print 'Use "python refresh.py taskname" To Start This Script. '
         return
-    PitchTask(sys.argv[1]).run()
+    RefreshTask(sys.argv[1]).run()
 
 if __name__ == '__main__':
     main()

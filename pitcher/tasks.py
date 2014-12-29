@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from ticketpitcher import pitcher
 from pitcher.models import *
 from pandas import DataFrame
+from dateutil import parser
 
 
 class PitchTask():
@@ -238,7 +239,7 @@ class PitchTask():
         self.writeSystemLog(u'程序开始执行...')
         # 判断刷票开关是否开启，如果没有开启则退出
         if not self.working:
-            self.writeSystemLog(u'刷票配置未启动，程序将退出.')
+            self.writeSystemLog(u'刷票任务配置未启动，程序将退出.')
             self.writeSystemLog(u'程序执行结束.')
             return
 
@@ -275,7 +276,112 @@ class PitchTask():
         self.writeSystemLog(u'程序执行结束!')
 
 
+def getFinalTime(x):
+    '''
+    获取 最终确认时间，即开船前1天的下午2点
+    x 开航时间 用文本存储的日期+时间格式（即直接从reserveInfo中读取的'航班时间'
+    '''
+    beginTime_1 = parser.parse(x) - timedelta(1)
+    lastDay = datetime.strftime(beginTime_1, "%Y-%m-%d")
+    return parser.parse(lastDay + ' 14:00')
 
 
+class RefreshTask():
+    '''
+    更新任务
+    '''
 
+    def __init__(self, taskName):
+        '''
+        构造函数
+        '''
+        task = Task.objects.get(taskName=taskName)
+        self.task = task
+        self.username = task.username
+        self.password = task.password
+        self.working = task.working
+
+    def isLogin(self):
+        '''
+        检查当前是否已经登录
+        '''
+        return pitcher.isLogin()
+
+
+    def login(self, username, password):
+        '''
+        登录
+        '''
+        return pitcher.login(username, password)
+
+
+    def getTicketInfo(self, day):
+        '''
+        按天获取船票的信息
+        day 日期格式为'yyyy-mm-dd'
+        '''
+        return pitcher.getTicketInfo(day)
+
+
+    def orderTicket(self, dailyFlightId, n):
+        '''
+        订票
+        '''
+        return pitcher.orderTicket(dailyFlightId, n)
+
+
+    def run(self):
+        '''
+        更新主过程
+        '''
+        self.writeSystemLog(u'程序开始执行...')
+        # 判断刷票开关是否开启，如果没有开启则退出
+        if not self.working:
+            self.writeSystemLog(u'更新任务配置未启动，程序将退出.')
+            self.writeSystemLog(u'程序执行结束.')
+            return
+
+        # 尝试进程登录
+        loginResult = self.login(self.username, self.password)
+        if loginResult:
+            self.writeSystemLog(u'登录成功!')
+        else:
+            self.writeSystemLog(u'登录失败，程序将退出.')
+            self.writeSystemLog(u'程序执行结束.')
+            return
+
+        # 获取当前用户的预订信息
+        self.writeSystemLog(u'尝试获取当前用户预订信息...')
+        reserveInfo = pitcher.getReserveInfo()
+        reserveInfo[u'最后确认时间(最终)'] = reserveInfo[u'航班时间'].apply(getFinalTime)
+        now = datetime.now()
+        # 条件1：最后确认时间要 大于 系统时间
+        c1 = reserveInfo[u'最后确认时间'].apply(lambda x: parser.parse(x)) > now
+        # 条件2：最后确认时间 不等于 最后确认时间（最终）
+        c2 = reserveInfo[u'最后确认时间(最终)'] != reserveInfo[u'最后确认时间']
+        # 获取需要更新的预订
+        reserveIdList = reserveInfo[c1 & c2][u'预订ID']
+        self.writeSystemLog(u'预订信息获取完毕.')
+
+        # 检查是否有需要更新的预订
+        if len(reserveIdList) == 0:
+            self.writeSystemLog(u'没有需要更新的预订，程序将退出.')
+            self.writeSystemLog(u'程序执行结束.')
+            return
+
+        # 刷新所有的预订的预订时间
+        for reserveId in reserveIdList:
+            self.writeSystemLog(u'尝试更新预订信息(reserveId=%s)...' % reserveId)
+            if pitcher.refreshReserve(reserveId):
+                self.writeSystemLog(u'更新成功.')
+            else:
+                self.writeSystemLog(u'更新失败,将跳过此项.')
+                # 检查连接是否丢失
+                if not self.isLogin():
+                    self.writeSystemLog(u'连接丢失，程序将退出.')
+                    self.writeSystemLog(u'程序执行结束.')
+                    return
+
+        self.writeSystemLog(u'已完成预订信息的刷新，程序将退出.')
+        self.writeSystemLog(u'程序执行结束.')
 
