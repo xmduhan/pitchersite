@@ -365,12 +365,15 @@ class RefreshTask():
         reserveInfo = pitcher.getReserveInfo()
         reserveInfo[u'最后确认时间(最终)'] = reserveInfo[u'航班时间'].apply(getFinalTime)
         now = datetime.now()
+        day = datetime.strftime(now,"%Y-%m-%d")
         # 条件1：最后确认时间要 大于 系统时间
         c1 = reserveInfo[u'最后确认时间'].apply(lambda x: parser.parse(x)) > now
         # 条件2：最后确认时间 不等于 最后确认时间（最终）
         c2 = reserveInfo[u'最后确认时间(最终)'] != reserveInfo[u'最后确认时间']
+        # 条件3：不是今天订的票（或者今天刚刷新过）
+        c3 = reserveInfo[u'预约时间'].apply(lambda x:  datetime.strftime(parser.parse(x),"%Y-%m-%d")) != day
         # 获取需要更新的预订
-        reserveIdList = reserveInfo[c1 & c2][u'预订ID']
+        reserveIdList = reserveInfo[c1 & c2 & 3][u'预订ID']
         self.writeSystemLog(u'预订信息获取完毕.')
 
         # 检查是否有需要更新的预订
@@ -379,6 +382,7 @@ class RefreshTask():
             self.writeSystemLog(u'程序执行结束.')
             return
 
+        self.writeSystemLog(u'有%d项预订需要更新...')
         # 刷新所有的预订的预订时间
         for reserveId in reserveIdList:
             self.writeSystemLog(u'尝试更新预订信息(reserveId=%s)...' % reserveId)
