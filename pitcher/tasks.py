@@ -373,7 +373,7 @@ class RefreshTask():
         # 条件3：不是今天订的票（或者今天刚刷新过）
         c3 = reserveInfo[u'预约时间'].apply(lambda x: datetime.strftime(parser.parse(x), "%Y-%m-%d")) != day
         # 获取需要更新的预订
-        reserveIdList = reserveInfo[c1 & c2 & 3][u'预订ID']
+        reserveIdList = reserveInfo[c1 & c2 & c3][u'预订ID']
         self.writeSystemLog(u'预订信息获取完毕.')
 
         # 检查是否有需要更新的预订
