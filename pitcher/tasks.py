@@ -6,6 +6,7 @@ Created on Mon Nov 17 20:03:38 2014
 """
 
 #%%
+from __future__ import division
 import time
 from datetime import datetime, timedelta
 from ticketpitcher import pitcher
@@ -199,11 +200,14 @@ class PitchTask():
                     need = config['need']
                     ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
                     # 调用抢票接口
+                    beginTime = datetime.now()
                     pitchResult = self.pitchItem(ticketInfo, flightCode, need)
+                    endTime = datetime.now()
                     # 将抢票结果反映在系统日志中
                     if pitchResult > 0:
+                        timeConsumed = endTime - beginTime
                         # 抢票成功
-                        self.writeSystemLog(ItemMessage + u'抢票成功!')
+                        self.writeSystemLog(ItemMessage + u'抢票成功!(%耗时.2f)' % timeConsumed.total_seconds())
                     else:
                         # 抢票失败
                         self.writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项.')
