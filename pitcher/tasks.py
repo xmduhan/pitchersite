@@ -207,7 +207,7 @@ class PitchTask():
                     if pitchResult > 0:
                         timeConsumed = endTime - beginTime
                         # 抢票成功
-                        self.writeSystemLog(ItemMessage + u'抢票成功!(%耗时.2f)' % timeConsumed.total_seconds())
+                        self.writeSystemLog(ItemMessage + u'抢票成功!(耗时%.2f秒)' % timeConsumed.total_seconds())
                     else:
                         # 抢票失败
                         self.writeSystemLog(ItemMessage + u'抢票执行失败，将跳过此项.')
