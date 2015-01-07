@@ -299,6 +299,15 @@ class RefreshTask():
         '''
         构造函数
         '''
+        #%% 设置全局变量
+        systemConfig = SystemConfig.objects.all()[0]
+        self.normalWaitingSecond = systemConfig.normalWaitingSecond
+        self.errorWaitingSecond = systemConfig.errorWaitingSecond
+        self.maxLoginError = systemConfig.maxLoginError
+        self.maxException = systemConfig.maxException
+        self.timeToStop = systemConfig.timeToStop
+
+        # 导入任务信息
         task = Task.objects.get(taskName=taskName)
         self.task = task
         self.username = task.username
@@ -392,8 +401,12 @@ class RefreshTask():
             self.writeSystemLog(u'尝试更新预订信息(reserveId=%s)...' % reserveId)
             if pitcher.refreshReserve(reserveId):
                 self.writeSystemLog(u'更新成功.')
+                self.writeSystemLog(u'等待%s秒... ...' % self.normalWaitingSecond)
+                time.sleep(self.normalWaitingSecond)
             else:
                 self.writeSystemLog(u'更新失败,将跳过此项.')
+                self.writeSystemLog(u'等待%s秒... ...' % self.errorWaitingSecond)
+                time.sleep(self.errorWaitingSecond)
                 # 检查连接是否丢失
                 if not self.isLogin():
                     self.writeSystemLog(u'连接丢失，程序将退出.')
