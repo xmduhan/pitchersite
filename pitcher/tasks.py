@@ -377,29 +377,46 @@ class RefreshTask():
         # 条件3：不是今天订的票（或者今天刚刷新过）
         c3 = reserveInfo[u'预约时间'].apply(lambda x: datetime.strftime(parser.parse(x), "%Y-%m-%d")) != day
         # 获取需要更新的预订
-        reserveIdList = reserveInfo[c1 & c2 & c3][u'预订ID']
+        reserveInfo = reserveInfo[c1 & c2 & c3]
         self.writeSystemLog(u'预订信息获取完毕.')
 
         # 检查是否有需要更新的预订
-        if len(reserveIdList) == 0:
+        if len(reserveInfo) == 0:
             self.writeSystemLog(u'没有需要更新的预订，程序将退出.')
             self.writeSystemLog(u'程序执行结束.')
             return
 
-        self.writeSystemLog(u'有%d项预订需要更新...' % len(reserveIdList))
-        # 刷新所有的预订的预订时间
-        for reserveId in reserveIdList:
-            self.writeSystemLog(u'尝试更新预订信息(reserveId=%s)...' % reserveId)
-            if pitcher.refreshReserve(reserveId):
-                self.writeSystemLog(u'更新成功.')
-            else:
-                self.writeSystemLog(u'更新失败,将跳过此项.')
-                # 检查连接是否丢失
-                if not self.isLogin():
-                    self.writeSystemLog(u'连接丢失，程序将退出.')
-                    self.writeSystemLog(u'程序执行结束.')
-                    return
-
+        error = 0
+        try:
+            self.writeSystemLog(u'有%d项预订需要更新...' % len(reserveInfo))
+            # 刷新所有的预订的预订时间
+            for i in reserveInfo.iterrows():
+                # 读取预订相关信息
+                row = i[1]
+                reserveId = row[u'预订ID']
+                departureTIME = row[u'航班时间']
+                departure = row[u'出发码头']
+                arrival = row[u'抵达码头']
+                # 将信息输入到日志以便出错的时候可以手工介入处理
+                self.writeSystemLog(u'尝试更新预订信息(reserveId=%s)...' % reserveId)
+                self.writeSystemLog(u'出发:%s,抵达:%s,开航时间:%s' % (departure, arrival, departureTIME))
+                if pitcher.refreshReserve(reserveId):
+                    self.writeSystemLog(u'更新成功.')
+                else:
+                    error += 1
+                    self.writeSystemLog(u'更新失败,将跳过此项.')
+                    # 检查连接是否丢失
+                    if not self.isLogin():
+                        self.writeSystemLog(u'连接丢失，程序将退出.')
+                        self.writeSystemLog(u'程序执行结束.')
+                        return
+        except Exception as e:
+            self.writeSystemLog(u'刷新中出现异常，程序将退出')
+            self.writeSystemLog(u'异常信息为:%s' % unicode(e))
+            self.writeSystemLog(u'更新出错%d次(不含异常)' % error)
+            self.writeSystemLog(u'程序异常结束.')
+            return
         self.writeSystemLog(u'已完成预订信息的刷新，程序将退出.')
+        self.writeSystemLog(u'更新出错%d次' % error)
         self.writeSystemLog(u'程序执行结束.')
 
