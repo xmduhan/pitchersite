@@ -28,6 +28,7 @@ class SystemLogAdmin(admin.ModelAdmin):
     ]
     list_display = ('task', 'logTime', 'logMsg')
     list_filter = ["task"]
+    date_hierarchy = 'logTime'
 
 
 admin.site.register(SystemLog, SystemLogAdmin)
