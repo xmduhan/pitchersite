@@ -458,8 +458,8 @@ class RefreshTask():
                         self.writeSystemLog(u'连接丢失，程序将退出.')
                         self.writeSystemLog(u'程序执行结束.')
                         return
-            self.writeSystemLog(u'完成一次更新!')
-            self.writeSystemLog(u'等待%s秒... ...' % self.normalWaitingSecond)
+                self.writeSystemLog(u'完成一次更新!')
+                self.writeSystemLog(u'等待%s秒... ...' % self.normalWaitingSecond)
         except Exception as e:
             self.writeSystemLog(u'刷新中出现异常，程序将退出')
             self.writeSystemLog(u'异常信息为:%s' % unicode(e))
