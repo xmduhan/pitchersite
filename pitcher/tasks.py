@@ -344,6 +344,53 @@ class RefreshTask():
         return pitcher.orderTicket(dailyFlightId, n)
 
 
+    def refreshReserve(self, reverseId, reserveInfo=None):
+        '''
+        通过取消预订，再重新预订的方法刷新预订的最后确认时间
+        reverseId   要刷新的预订记录的ID
+        reserveInfo 当前用户的预订信息（通过调用getReserveInfo获得），如果为空将重新请求
+        '''
+        if reserveInfo == None:
+            reserveInfo = pitcher.getReserveInfo()
+
+        # 读取当前预订数据
+        c1 = reserveInfo[u'预订ID'] == str(reverseId)
+        data = reserveInfo[c1]
+        if len(data) != 1:
+            return False
+
+        # 通过预订数据获取航班ID
+        beginDay = data.irow(0)[u'开航日期']
+        beginTime = data.irow(0)[u'开航时间']
+        departure = data.irow(0)[u'出发码头']
+        arrival = data.irow(0)[u'抵达码头']
+        cnt = int(data.irow(0)[u'人数'])
+        self.writeSystemLog(u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
+        dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
+        if dailyFlightId == None:
+            self.writeSystemLog(u'获取航班ID失败')
+            return False
+
+        # 取消预订
+        if pitcher.cancelReserve(reverseId) == False:
+            self.writeSystemLog(u'取消预订失败')
+            return False
+        self.writeSystemLog(u'预订已取消,将尝试回订')
+
+        # 重新预订
+        error = 0
+        while pitcher.orderTicket(dailyFlightId, cnt) == False:
+            error += 1
+            if error > 10:
+                self.writeSystemLog(u'回订出错超过10次，将跳过此项!!!')
+                return False
+            self.writeSystemLog(u'回订出错将重试...')
+            time.sleep(2)
+
+        self.writeSystemLog(u'回订成功!')
+        return True
+
+
     def run(self):
         '''
         更新主过程
@@ -395,13 +442,13 @@ class RefreshTask():
                 # 读取预订相关信息
                 row = i[1]
                 reserveId = row[u'预订ID']
-                departureTIME = row[u'航班时间']
-                departure = row[u'出发码头']
-                arrival = row[u'抵达码头']
+                #departureTIME = row[u'航班时间']
+                #departure = row[u'出发码头']
+                #arrival = row[u'抵达码头']
                 # 将信息输入到日志以便出错的时候可以手工介入处理
                 self.writeSystemLog(u'尝试更新预订信息(reserveId=%s)...' % reserveId)
-                self.writeSystemLog(u'出发:%s,抵达:%s,开航时间:%s' % (departure, arrival, departureTIME))
-                if pitcher.refreshReserve(reserveId):
+                #self.writeSystemLog(u'出发:%s,抵达:%s,开航时间:%s' % (departure, arrival, departureTIME))
+                if self.refreshReserve(reserveId):
                     self.writeSystemLog(u'更新成功.')
                 else:
                     error += 1
