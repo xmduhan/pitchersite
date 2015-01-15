@@ -299,6 +299,14 @@ class RefreshTask():
         '''
         构造函数
         '''
+        #%% 设置全局变量
+        systemConfig = SystemConfig.objects.all()[0]
+        self.normalWaitingSecond = systemConfig.normalWaitingSecond
+        self.errorWaitingSecond = systemConfig.errorWaitingSecond
+        self.maxLoginError = systemConfig.maxLoginError
+        self.maxException = systemConfig.maxException
+        self.timeToStop = systemConfig.timeToStop
+        # 导入任务信息
         task = Task.objects.get(taskName=taskName)
         self.task = task
         self.username = task.username
