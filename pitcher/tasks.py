@@ -461,6 +461,9 @@ class RefreshTask():
                 else:
                     error += 1
                     self.writeSystemLog(u'更新失败,将跳过此项.')
+                    if error > self.maxException:
+                        self.writeSystemLog(u'抛出异常超过%d次，程序将退出!' % self.maxException)
+                        return
                     # 检查连接是否丢失
                     if not self.isLogin():
                         self.writeSystemLog(u'连接丢失，程序将退出.')
