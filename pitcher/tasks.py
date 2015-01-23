@@ -378,6 +378,7 @@ class RefreshTask():
         if dailyFlightId == None:
             self.writeSystemLog(u'获取航班ID失败')
             return False
+        self.writeSystemLog(u'dailyFlightId=%d',dailyFlightId)
 
         # 取消预订
         if pitcher.cancelReserve(reverseId) == False:
@@ -392,7 +393,7 @@ class RefreshTask():
             if error > 10:
                 self.writeSystemLog(u'回订出错超过10次，将跳过此项!!!')
                 return False
-            self.writeSystemLog(u'回订出错将重试...dailyFlightId=%' % dailyFlightId)
+            self.writeSystemLog(u'回订出错将重试...dailyFlightId=%d' % dailyFlightId)
             time.sleep(2)
             # 重新读取dailyFlightId，如果出错是由dailyFlightId造成无论重做多少次都是没有用的
             dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
