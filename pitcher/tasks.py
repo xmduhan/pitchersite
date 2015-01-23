@@ -392,7 +392,7 @@ class RefreshTask():
             if error > 10:
                 self.writeSystemLog(u'回订出错超过10次，将跳过此项!!!')
                 return False
-            self.writeSystemLog(u'回订出错将重试...')
+            self.writeSystemLog(u'回订出错将重试...dailyFlightId=%' % dailyFlightId)
             time.sleep(2)
             # 重新读取dailyFlightId，如果出错是由dailyFlightId造成无论重做多少次都是没有用的
             dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
