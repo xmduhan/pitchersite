@@ -394,6 +394,8 @@ class RefreshTask():
                 return False
             self.writeSystemLog(u'回订出错将重试...')
             time.sleep(2)
+            # 重新读取dailyFlightId，如果出错是由dailyFlightId造成无论重做多少次都是没有用的
+            dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
 
         self.writeSystemLog(u'回订成功!')
         return True
