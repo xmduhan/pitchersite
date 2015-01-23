@@ -378,7 +378,7 @@ class RefreshTask():
         if dailyFlightId == None:
             self.writeSystemLog(u'获取航班ID失败')
             return False
-        self.writeSystemLog(u'dailyFlightId=%d',dailyFlightId)
+        self.writeSystemLog(u'dailyFlightId=%d' % dailyFlightId)
 
         # 取消预订
         if pitcher.cancelReserve(reverseId) == False:
