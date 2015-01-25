@@ -118,3 +118,23 @@ class PitchLog(models.Model):
         return datetime.strftime(self.pitchTime, '%Y-%m-%d')
 
 
+class RefreshRedo(models.Model):
+    '''
+    票项刷新重做日志
+    1月22系统改规则了，退票后两个小时才会放出来所以这里无论做多少次都不会成功的
+    只能把出错信息记录下，之后再不停刷，直到成功
+    '''
+    STATE_AVAILABLE = ((u'redoing', u'等待重做'), (u'finished', u'重做完成'), (u'failed', u'重做失败'))
+    beginDay = models.CharField(u'出发日期', max_length=100)
+    beginTime = models.CharField(u'出发时间', max_length=100)
+    departure = models.CharField(u'出发码头', max_length=100)
+    arrival = models.CharField(u'抵达码头', max_length=100)
+    cnt = models.IntegerField(u'需票数')
+    state = models.CharField(u'状态', choices=STATE_AVAILABLE, max_length=100)
+
+
+    class Meta:
+        verbose_name = u'重做信息'
+        verbose_name_plural = u'(07)重做信息'
+
+

@@ -106,6 +106,17 @@ class PitchLogAdmin(admin.ModelAdmin):
     #list_filter=["pitchMonth"]
     #search_fields=["pitchTime"]
 
-
 admin.site.register(PitchLog, PitchLogAdmin)
 
+
+class RefreshRedoAdmin(admin.ModelAdmin):
+    fields = [
+        'beginDay', 'beginTime', 'departure', 'arrival', 'cnt', 'state',
+    ]
+    list_display = (
+        'beginDay', 'beginTime', 'departure', 'arrival', 'cnt', 'state',
+    )
+    list_filter = ["state"]
+
+
+admin.site.register(RefreshRedo, RefreshRedoAdmin)
