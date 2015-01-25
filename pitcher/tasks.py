@@ -555,9 +555,6 @@ class RefreshTask():
                             self.writeSystemLog(u'该项已经重做成功!')
                             successCount += 1
 
-                    # 等待一定时间(避免过于频繁访问服务器)
-                    # 由于只有我们知道票出现的大概时间，被别人订走的可能性不大
-                    time.sleep(self.normalWaitingSecond)
 
                 # 完成一次重做,打印执行信息
                 errorCount -= successCount
@@ -565,6 +562,10 @@ class RefreshTask():
                 # 更新执行时间
                 currentTime = datetime.now()
                 timeSpend = currentTime - runStartTime
+
+                # 等待一定时间(避免过于频繁访问服务器)
+                # 由于只有我们知道票出现的大概时间，被别人订走的可能性不大
+                time.sleep(self.normalWaitingSecond)
             except Exception as e:
                 self.writeSystemLog(u'发生异常:%s，程序将继续执行' % unicode(e))
 
