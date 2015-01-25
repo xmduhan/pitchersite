@@ -562,12 +562,32 @@ class RefreshTask():
                 # 更新执行时间
                 currentTime = datetime.now()
                 timeSpend = currentTime - runStartTime
-
-                # 等待一定时间(避免过于频繁访问服务器)
-                # 由于只有我们知道票出现的大概时间，被别人订走的可能性不大
-                time.sleep(self.normalWaitingSecond)
             except Exception as e:
                 self.writeSystemLog(u'发生异常:%s，程序将继续执行' % unicode(e))
+
+            # 等待一定时间(避免过于频繁访问服务器)
+            # 由于只有我们知道票出现的大概时间，被别人订走的可能性不大
+            time.sleep(self.normalWaitingSecond)
+
+            # 检查是否是登录状态，如果登录状态丢失则重新登录
+            if not self.isLogin():
+                self.writeSystemLog(u'连接丢失，将重新登录...')
+                loginErrorCount = 0
+                while True:
+                    loginResult = self.login(self.username, self.password)
+                    if loginResult:
+                        # 如果登录成功清空原来登录失败的记录
+                        self.writeSystemLog(u'登录成功!')
+                        break
+                    else:
+                        loginErrorCount += 1
+                        if loginErrorCount > self.maxLoginError:
+                            self.writeSystemLog(u'登录失败超过%d次，程序退出!' % self.maxLoginError)
+                            return
+                        else:
+                            self.writeSystemLog(u'登录失败!')
+                            self.writeSystemLog(u'等待%s秒... ...' % self.errorWaitingSecond)
+                            time.sleep(self.errorWaitingSecond)
 
         self.writeSystemLog(u'重做过程执行结束')
 
