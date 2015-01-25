@@ -513,57 +513,60 @@ class RefreshTask():
 
         # 不停处理每一个信息项,直到没有错误需要重做,或者执行时间到了
         while errorCount > 0 and timeSpend.total_seconds() / 3600 < 5:
-            redoList = list(RefreshRedo.objects.filter(state=u'redoing'))
-            errorCount = len(redoList)
-            if errorCount == 0:
-                self.writeSystemLog(u'已无项目需要处理,程序将退出')
-            else:
-                self.writeSystemLog(u'开始一次重做，共%d需要处理...' % errorCount)
+            try:
+                redoList = list(RefreshRedo.objects.filter(state=u'redoing'))
+                errorCount = len(redoList)
+                if errorCount == 0:
+                    self.writeSystemLog(u'已无项目需要处理,程序将退出')
+                else:
+                    self.writeSystemLog(u'开始一次重做，共%d需要处理...' % errorCount)
 
-            # 根据出错列表调用重新回订过程
-            successCount = 0
-            for redo in redoList:
-                departure = redo.departure
-                arrival = redo.arrival
-                beginDay = redo.beginDay
-                beginTime = redo.beginTime
-                cnt = redo.cnt
+                # 根据出错列表调用重新回订过程
+                successCount = 0
+                for redo in redoList:
+                    departure = redo.departure
+                    arrival = redo.arrival
+                    beginDay = redo.beginDay
+                    beginTime = redo.beginTime
+                    cnt = redo.cnt
 
-                # 如果当前时间和开航日期0点的时间小于1天，则不再刷新这个票项
-                # 因为正常刷新提前5天前就刷新好了，所以不会有影响
-                # 这样做主要是防止重做票项无限增长，且去订之前日期的票
-                beginDateTime = parser.parse(beginDay)
-                if (beginDateTime - currentTime).days < 1:
-                    redo.state = u'failed'
-                    redo.save()
-                    self.writeSystemLog(
-                        u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
-                    self.writeSystemLog(u'该项已经超过可以重做的时间，已标记为失败!!!')
-                    continue
-
-                # 尝试重调订票过程
-                dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
-                if dailyFlightId:
-                    result = pitcher.orderTicket(dailyFlightId, cnt)
-                    if result:
-                        # 重做成功将记录标识为完成
-                        redo.state = u'finished'
+                    # 如果当前时间和开航日期0点的时间小于1天，则不再刷新这个票项
+                    # 因为正常刷新提前5天前就刷新好了，所以不会有影响
+                    # 这样做主要是防止重做票项无限增长，且去订之前日期的票
+                    beginDateTime = parser.parse(beginDay)
+                    if (beginDateTime - currentTime).days < 1:
+                        redo.state = u'failed'
                         redo.save()
                         self.writeSystemLog(
                             u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
-                        self.writeSystemLog(u'该项已经重做成功!')
-                        successCount += 1
+                        self.writeSystemLog(u'该项已经超过可以重做的时间，已标记为失败!!!')
+                        continue
 
-                # 等待一定时间(避免过于频繁访问服务器)
-                # 由于只有我们知道票出现的大概时间，被别人订走的可能性不大
-                time.sleep(self.normalWaitingSecond)
+                    # 尝试重调订票过程
+                    dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
+                    if dailyFlightId:
+                        result = pitcher.orderTicket(dailyFlightId, cnt)
+                        if result:
+                            # 重做成功将记录标识为完成
+                            redo.state = u'finished'
+                            redo.save()
+                            self.writeSystemLog(
+                                u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
+                            self.writeSystemLog(u'该项已经重做成功!')
+                            successCount += 1
 
-            # 完成一次重做,打印执行信息
-            errorCount -= successCount
-            self.writeSystemLog(u'完成一次重做：%d项成功，%d项失败.' % (successCount, errorCount))
-            # 更新执行时间
-            currentTime = datetime.now()
-            timeSpend = currentTime - runStartTime
+                    # 等待一定时间(避免过于频繁访问服务器)
+                    # 由于只有我们知道票出现的大概时间，被别人订走的可能性不大
+                    time.sleep(self.normalWaitingSecond)
+
+                # 完成一次重做,打印执行信息
+                errorCount -= successCount
+                self.writeSystemLog(u'完成一次重做：%d项成功，%d项失败.' % (successCount, errorCount))
+                # 更新执行时间
+                currentTime = datetime.now()
+                timeSpend = currentTime - runStartTime
+            except Exception as e:
+                self.writeSystemLog(u'发生异常:%s，程序将继续执行' % unicode(e))
 
         self.writeSystemLog(u'重做过程执行结束')
 
