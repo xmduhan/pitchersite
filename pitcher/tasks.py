@@ -471,11 +471,11 @@ class RefreshTask():
                 if self.refreshReserve(reserveId):
                     self.writeSystemLog(u'更新成功.')
                 else:
+                    error += 1
+                    self.writeSystemLog(u'更新失败,将跳过此项.')
                     # 1月22系统改规则了，退票后两个小时才会放出
                     # 多数票项的刷新都会失败只能依靠出错日志重做了
                     # 所以这里无论失败多少次都不能退出
-                    #error += 1
-                    #self.writeSystemLog(u'更新失败,将跳过此项.')
                     #if error > self.maxException:
                     #    self.writeSystemLog(u'抛出异常超过%d次，程序将退出!' % self.maxException)
                     #    return
