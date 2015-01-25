@@ -125,6 +125,7 @@ class RefreshRedo(models.Model):
     只能把出错信息记录下，之后再不停刷，直到成功
     '''
     STATE_AVAILABLE = ((u'redoing', u'等待重做'), (u'finished', u'重做完成'), (u'failed', u'重做失败'))
+    inTime = models.DateTimeField(u"出错时间", default=datetime.now)
     beginDay = models.CharField(u'出发日期', max_length=100)
     beginTime = models.CharField(u'出发时间', max_length=100)
     departure = models.CharField(u'出发码头', max_length=100)
