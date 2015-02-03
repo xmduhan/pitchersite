@@ -752,25 +752,28 @@ class RedoTask():
                         # 尝试重调订票过程
                         dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
                         if dailyFlightId:
-                            # 按实际剩余票数抢
-                            result = pitcher.orderTicket(dailyFlightId, remainCnt)
                             self.writeSystemLog(
                                 u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
-                            if result:
-                                # 如果重做的票数已够
-                                if remainCnt >= cnt:
+                            if remainCnt >= cnt:
+                                # 如果票数量够，按需票量抢
+                                result = pitcher.orderTicket(dailyFlightId, cnt)
+                                if result:
                                     # 重做成功将记录标识为完成
                                     redo.state = u'finished'
                                     redo.save()
                                     self.writeSystemLog(u'该项已经重做成功!')
                                     successCount += 1
                                 else:
+                                    self.writeSystemLog(u'虽有余票项但抢订失败!')
+                            else:
+                                # 如果票数不够，按实际票数抢
+                                result = pitcher.orderTicket(dailyFlightId, remainCnt)
+                                if result:
                                     redo.cnt -= remainCnt
                                     redo.save()
                                     self.writeSystemLog(u'重做项余票数不够,但已抢回%d张' % remainCnt)
-                            else:
-                                self.writeSystemLog(u'虽有余票项但抢订失败!')
-
+                                else:
+                                    self.writeSystemLog(u'虽有余票项但抢订失败!')
                         # 避免过分频繁访问服务器(for todo1 in todos:)
                         time.sleep(self.normalWaitingSecond)
                 # 避免过分频繁访问服务器(for day in redos.beginDay.drop_duplicates())
