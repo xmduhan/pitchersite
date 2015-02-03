@@ -13,6 +13,7 @@ from ticketpitcher import pitcher
 from pitcher.models import *
 from pandas import DataFrame
 from dateutil import parser
+from django_pandas.io import read_frame
 
 
 class PitchTask():
@@ -605,4 +606,208 @@ class RefreshTask():
         self.writeSystemLog(u'重做过程已返回...')
 
 
+class RedoTask():
+    '''
+    更新任务
+    '''
 
+    def __init__(self, taskName):
+        '''
+        构造函数
+        '''
+        #%% 设置全局变量
+        systemConfig = SystemConfig.objects.all()[0]
+        self.normalWaitingSecond = systemConfig.normalWaitingSecond
+        self.errorWaitingSecond = systemConfig.errorWaitingSecond
+        self.maxLoginError = systemConfig.maxLoginError
+        self.maxException = systemConfig.maxException
+        self.timeToStop = systemConfig.timeToStop
+        # 导入任务信息
+        task = Task.objects.get(taskName=taskName)
+        self.task = task
+        self.username = task.username
+        self.password = task.password
+        self.working = task.working
+
+    def writeSystemLog(self, msg):
+        '''
+        写入系统日志
+        '''
+        # 将信息写到数据库日志中
+        log = SystemLog()
+        log.logMsg = msg
+        log.task = self.task
+        log.save()
+
+    def isLogin(self):
+        '''
+        检查当前是否已经登录
+        '''
+        return pitcher.isLogin()
+
+
+    def login(self, username, password):
+        '''
+        登录
+        '''
+        return pitcher.login(username, password)
+
+
+    def getTicketInfo(self, day):
+        '''
+        按天获取船票的信息
+        day 日期格式为'yyyy-mm-dd'
+        '''
+        return pitcher.getTicketInfo(day)
+
+
+    def orderTicket(self, dailyFlightId, n):
+        '''
+        订票
+        '''
+        return pitcher.orderTicket(dailyFlightId, n)
+
+
+    def runRedo(self):
+        '''
+        将更新票项的过程中失败的数据重做直到成功
+        '''
+        # 查出需要进行重做的数据
+        self.writeSystemLog(u'重做过程开始执行')
+
+        # 尝试进程登录
+        loginResult = self.login(self.username, self.password)
+        if loginResult:
+            self.writeSystemLog(u'登录成功!')
+
+        # 执行时间变量的初始化
+        runStartTime = datetime.now()
+        currentTime = datetime.now()
+        timeSpend = currentTime - runStartTime
+        # 获取总出错项
+        qs = RefreshRedo.objects.filter(state=u'redoing')
+        redos = read_frame(qs)
+        errorCount = len(redos)
+        self.writeSystemLog(u'共有%d次错误需要重做' % errorCount)
+
+        # 不停处理每一个信息项,直到没有错误需要重做,或者执行时间到了
+        while errorCount > 0:
+            try:
+                qs = RefreshRedo.objects.filter(state=u'redoing')
+                redos = read_frame(qs)
+                errorCount = len(redos)
+                if errorCount == 0:
+                    self.writeSystemLog(u'已无项目需要处理,程序将退出')
+                else:
+                    self.writeSystemLog(u'开始一次重做，共%d需要处理...' % errorCount)
+
+                # 根据出错列表调用重新回订过程
+                successCount = 0
+                # 按唯一的日期获取数据，提高访问效率
+                for day in redos.beginDay.drop_duplicates():
+                    self.writeSystemLog(u'检查%s的余票信息' % day)
+
+                    # 获取有余票的项
+                    ticketInfo = pitcher.getTicketInfo(day)
+                    c1 = ticketInfo[u'余票'].apply(lambda x: int(x)) > 0
+                    remain = ticketInfo[c1]
+                    remain[u'开航日期'] = day
+
+                    # 余票信息和重做记录关联，得出可以重做的票项
+                    leftColumns = ['beginDay', 'beginTime', 'departure', 'arrival']
+                    rightColumns = [u'开航日期', u'开航时间', u'出发码头', u'抵达码头']
+                    todos = redos.merge(remain, left_on=leftColumns, right_on=rightColumns).to_dict(outtype='records')
+
+                    if todos:
+                        self.writeSystemLog(u'有%个重做项出现余票' % len(todos))
+                    else:
+                        self.writeSystemLog(u'无重做项有余票')
+
+                    # 循环对有余票的项目进程操作
+                    for todo in todos:
+                        # 初始化相关信息
+                        departure = todo['departure']
+                        arrival = todo['arrival']
+                        beginDay = todo['beginDay']
+                        beginTime = todo['beginTime']
+                        cnt = todo['cnt']
+                        remainCnt = todo[u'余票']
+                        redoId = todo['id']
+                        redo = RefreshRedo.objects.get(id=redoId)
+                        # 如果当前时间和开航日期0点的时间小于1天，则不再刷新这个票项
+                        # 因为正常刷新提前5天前就刷新好了，所以不会有影响
+                        # 这样做主要是防止重做票项无限增长，且去订之前日期的票
+                        beginDateTime = parser.parse(beginDay)
+                        if (beginDateTime - currentTime).days < 1:
+                            redo.state = u'failed'
+                            redo.save()
+                            self.writeSystemLog(
+                                u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
+                            self.writeSystemLog(u'该项已经超过可以重做的时间，已标记为失败!!!')
+                            continue
+
+                        # 尝试重调订票过程
+                        dailyFlightId = pitcher.getDailyFlightId(beginDay, beginTime, departure, arrival)
+                        if dailyFlightId:
+                            # 按实际剩余票数抢
+                            result = pitcher.orderTicket(dailyFlightId, remainCnt)
+                            self.writeSystemLog(
+                                    u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
+                            if result:
+                                # 如果重做的票数已够
+                                if remainCnt >= cnt:
+                                    # 重做成功将记录标识为完成
+                                    redo.state = u'finished'
+                                    redo.save()
+                                    self.writeSystemLog(u'该项已经重做成功!')
+                                    successCount += 1
+                                else:
+                                    redo.cnt -= remainCnt
+                                    redo.save()
+                                    self.writeSystemLog(u'重做项余票数不够,但已抢回%d张' % remainCnt)
+                            else:
+                                self.writeSystemLog(u'虽有余票项但抢订失败!')
+
+                        # 避免过分频繁访问服务器(for todo1 in todos:)
+                        time.sleep(self.normalWaitingSecond)
+                # 避免过分频繁访问服务器(for day in redos.beginDay.drop_duplicates())
+                time.sleep(self.normalWaitingSecond)
+
+                # 完成一次重做,打印执行信息
+                errorCount -= successCount
+                self.writeSystemLog(u'完成一次重做：%d项成功，%d项失败.' % (successCount, errorCount))
+                # 更新执行时间
+                currentTime = datetime.now()
+                timeSpend = currentTime - runStartTime
+            except Exception as e:
+                self.writeSystemLog(u'发生异常:%s，程序将继续执行' % unicode(e))
+
+            # 检查是否是登录状态，如果登录状态丢失则重新登录
+            if not self.isLogin():
+                self.writeSystemLog(u'连接丢失，将重新登录...')
+                loginErrorCount = 0
+                while True:
+                    loginResult = self.login(self.username, self.password)
+                    if loginResult:
+                        # 如果登录成功清空原来登录失败的记录
+                        self.writeSystemLog(u'登录成功!')
+                        break
+                    else:
+                        loginErrorCount += 1
+                        if loginErrorCount > self.maxLoginError:
+                            self.writeSystemLog(u'登录失败超过%d次，程序退出!' % self.maxLoginError)
+                            return
+                        else:
+                            self.writeSystemLog(u'登录失败!')
+                            self.writeSystemLog(u'等待%s秒... ...' % self.errorWaitingSecond)
+                            time.sleep(self.errorWaitingSecond)
+
+        self.writeSystemLog(u'重做过程执行结束')
+
+    def run(self):
+        '''
+        更新主过程
+        '''
+        self.writeSystemLog(u'开始重做过程...')
+        self.runRedo()
+        self.writeSystemLog(u'重做过程已返回...')
