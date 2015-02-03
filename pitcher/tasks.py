@@ -690,6 +690,7 @@ class RedoTask():
         errorCount = len(redos)
         self.writeSystemLog(u'共有%d次错误需要重做' % errorCount)
 
+
         # 不停处理每一个信息项,直到没有错误需要重做,或者执行时间到了
         while errorCount > 0:
             try:
@@ -719,7 +720,7 @@ class RedoTask():
                     todos = redos.merge(remain, left_on=leftColumns, right_on=rightColumns).to_dict(outtype='records')
 
                     if todos:
-                        self.writeSystemLog(u'有%个重做项出现余票' % len(todos))
+                        self.writeSystemLog(u'有%d个重做项出现余票' % len(todos))
                     else:
                         self.writeSystemLog(u'无重做项有余票')
 
@@ -731,7 +732,7 @@ class RedoTask():
                         beginDay = todo['beginDay']
                         beginTime = todo['beginTime']
                         cnt = todo['cnt']
-                        remainCnt = todo[u'余票']
+                        remainCnt = int(todo[u'余票'])
                         redoId = todo['id']
                         redo = RefreshRedo.objects.get(id=redoId)
                         # 如果当前时间和开航日期0点的时间小于1天，则不再刷新这个票项
@@ -752,7 +753,7 @@ class RedoTask():
                             # 按实际剩余票数抢
                             result = pitcher.orderTicket(dailyFlightId, remainCnt)
                             self.writeSystemLog(
-                                    u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
+                                u'出发:%s,抵达:%s,开航时间:%s %s,人数:%s' % (departure, arrival, beginDay, beginTime, cnt))
                             if result:
                                 # 如果重做的票数已够
                                 if remainCnt >= cnt:
