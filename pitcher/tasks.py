@@ -723,6 +723,8 @@ class RedoTask():
                         self.writeSystemLog(u'有%d个重做项出现余票' % len(todos))
                     else:
                         self.writeSystemLog(u'无重做项有余票')
+                        # 避免过分频繁访问服务器
+                        time.sleep(self.normalWaitingSecond)
 
                     # 循环对有余票的项目进程操作
                     for todo in todos:
