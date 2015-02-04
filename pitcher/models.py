@@ -7,7 +7,7 @@ class Task(models.Model):
     '''
     任务
     '''
-    TASK_TYPE = ( ('pitch', u'抢票'), ('refresh', u'刷新'))
+    TASK_TYPE = ( ('pitch', u'抢票'), ('refresh', u'刷新'), ('redo', u'重做'))
     taskName = models.CharField(u'任务名', max_length=100)
     username = models.CharField(u'用户名', max_length=100)
     password = models.CharField(u'密码', max_length=100)
