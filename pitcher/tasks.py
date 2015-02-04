@@ -679,6 +679,9 @@ class RedoTask():
         loginResult = self.login(self.username, self.password)
         if loginResult:
             self.writeSystemLog(u'登录成功!')
+        else:
+            self.writeSystemLog(u'登录失败!')
+            raise Exception(u'登录失败!')
 
         # 执行时间变量的初始化
         runStartTime = datetime.now()
@@ -815,5 +818,14 @@ class RedoTask():
         更新主过程
         '''
         self.writeSystemLog(u'开始重做过程...')
-        self.runRedo()
+        while True:
+            try:
+                self.runRedo()
+            except Exception as e:
+                self.writeSystemLog(u'发生异常:%s，程序将继续执行' % unicode(e))
+            # 程序执行到这里有两种情况:
+            # 1、抛出异常
+            # 2、所有重做项执行完毕
+            # 等待15分钟后重新开始执行
+            time.sleep(900)
         self.writeSystemLog(u'重做过程已返回...')
