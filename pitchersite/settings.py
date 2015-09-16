@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'initdata',
     'pitcher',
     #'djcelery',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,7 +62,7 @@ WSGI_APPLICATION = 'pitchersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 
-development = True
+development = False
 
 if development:
     DATABASES = {
@@ -109,6 +110,6 @@ FIRST_DAY_OF_WEEK = 1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/wx/static'
+STATIC_ROOT = '/home/pitcher/static'
 
 

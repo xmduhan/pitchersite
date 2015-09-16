@@ -98,7 +98,8 @@ class PitchTask():
         ticketInfo 船票信息
         flightCode 航班的编码
         '''
-        df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+        #df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+        df = ticketInfo[ ticketInfo[u'航班号'].apply(lambda x : x.startswith(flightCode)) ]
         if len(df.index) > 0:
             return int(df.irow(0)[u'余票'])
         else:
@@ -111,7 +112,8 @@ class PitchTask():
         ticketInfo 船票信息
         flightCode 航班的编码
         '''
-        df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+        #df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+        df = ticketInfo[ ticketInfo[u'航班号'].apply(lambda x : x.startswith(flightCode)) ]
         if len(df.index) > 0:
             return int(df.irow(0)[u'航班ID'])
         else:
@@ -167,7 +169,8 @@ class PitchTask():
         pitchLog.flightCode = flightCode
         pitchLog.need = need
         pitchLog.pitchCount = pitchResult
-        df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+        #df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
+        df = ticketInfo[ ticketInfo[u'航班号'].apply(lambda x : x.startswith(flightCode)) ]
         if len(df.index) > 0:
             row = df.irow(0)
             pitchLog.flightId = row[u'航班ID']
@@ -175,11 +178,11 @@ class PitchTask():
             pitchLog.arrival = row[u'抵达码头']
             pitchLog.departureTime = row[u'开航时间']
             pitchLog.ticketCount = row[u'余票']
+            # 保存抢票日志
+            pitchLog.save()
         else:
             ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
             self.writeSystemLog(ItemMessage + u'无法获取余票及航班相关信息.')
-        # 保存抢票日志
-        pitchLog.save()
 
 
     def pitchLoop(self):
