@@ -1,1 +1,1196 @@
-[{"pk": 1, "model": "pitcher.task", "fields": {"username": "xmjf001", "taskName": "p1", "password": "123456", "type": "pitch", "working": true}}, {"pk": 2, "model": "pitcher.task", "fields": {"username": "xmjf001", "taskName": "p2", "password": "123456", "type": "pitch", "working": true}}, {"pk": 3, "model": "pitcher.task", "fields": {"username": "xmjf001", "taskName": "r1", "password": "123456", "type": "refresh", "working": true}}, {"pk": 1, "model": "pitcher.systemconfig", "fields": {"maxException": 5, "normalWaitingSecond": 2, "preceding": 20, "maxLoginError": 5, "errorWaitingSecond": 5, "timeToStop": "12:00"}}, {"pk": 1, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "07:10", "flightCode": "DS0710", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 2, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "07:10", "flightCode": "DN0710", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 3, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "07:30", "flightCode": "DS0730", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 4, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "07:30", "flightCode": "DN0730", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 5, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "07:30", "flightCode": "SN0730", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 6, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "07:50", "flightCode": "DS0750", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 7, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "07:50", "flightCode": "SN0750", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 8, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "07:50", "flightCode": "DP0750", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 9, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "08:10", "flightCode": "DS0810", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 10, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "08:10", "flightCode": "DN0810", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 11, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "08:30", "flightCode": "DS0830", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 12, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "08:30", "flightCode": "DN0830", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 13, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "08:30", "flightCode": "SN0830", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 14, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "08:50", "flightCode": "DS0850", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 15, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "08:50", "flightCode": "SN0850", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 16, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "08:50", "flightCode": "DP0850", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 17, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "09:10", "flightCode": "DS0910", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 18, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "09:10", "flightCode": "DN0910", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 19, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "09:30", "flightCode": "DS0930", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 20, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "09:30", "flightCode": "DN0930", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 21, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "09:30", "flightCode": "SN0930", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 22, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "09:50", "flightCode": "DS0950", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 23, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "09:50", "flightCode": "SN0950", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 24, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "09:50", "flightCode": "DP0950", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 25, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "10:10", "flightCode": "DS1010", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 26, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "10:10", "flightCode": "DN1010", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 27, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "10:30", "flightCode": "DS1030", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 28, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "10:30", "flightCode": "DN1030", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 29, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "10:30", "flightCode": "SN1030", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 30, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "10:50", "flightCode": "DS1050", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 31, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "10:50", "flightCode": "SN1050", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 32, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "10:50", "flightCode": "DP1050", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 33, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "11:10", "flightCode": "DS1110", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 34, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "11:10", "flightCode": "DN1110", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 35, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "11:30", "flightCode": "DS1130", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 36, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "11:30", "flightCode": "DN1130", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 37, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "11:30", "flightCode": "SN1130", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 38, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "11:50", "flightCode": "DS1150", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 39, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "11:50", "flightCode": "SN1150", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 40, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "11:50", "flightCode": "DP1150", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 41, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "12:10", "flightCode": "DS1210", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 42, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "12:10", "flightCode": "DN1210", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 43, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "12:30", "flightCode": "DS1230", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 44, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "12:30", "flightCode": "DN1230", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 45, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "12:30", "flightCode": "SN1230", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 46, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "12:50", "flightCode": "DS1250", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 47, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "12:50", "flightCode": "SN1250", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 48, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "12:50", "flightCode": "DP1250", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 49, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "13:10", "flightCode": "DS1310", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 50, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "13:10", "flightCode": "DN1310", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 51, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "13:30", "flightCode": "DS1330", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 52, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "13:30", "flightCode": "DN1330", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 53, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "13:30", "flightCode": "SN1330", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 54, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "13:50", "flightCode": "DS1350", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 55, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "13:50", "flightCode": "SN1350", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 56, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "13:50", "flightCode": "DP1350", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 57, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "14:10", "flightCode": "DS1410", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 58, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "14:10", "flightCode": "DN1410", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 59, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "14:30", "flightCode": "DS1430", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 60, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "14:30", "flightCode": "DN1430", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 61, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "14:30", "flightCode": "SN1430", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 62, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "14:50", "flightCode": "DS1450", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 63, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "14:50", "flightCode": "SN1450", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 64, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "14:50", "flightCode": "DP1450", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 65, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "15:10", "flightCode": "DS1510", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 66, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "15:10", "flightCode": "DN1510", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 67, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "15:30", "flightCode": "DS1530", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 68, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "15:30", "flightCode": "DN1530", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 69, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "15:30", "flightCode": "SN1530", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 70, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "15:50", "flightCode": "DS1550", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 71, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "15:50", "flightCode": "SN1550", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 72, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "15:50", "flightCode": "DP1550", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 73, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "16:10", "flightCode": "DS1610", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 74, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "16:10", "flightCode": "DN1610", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 75, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "16:30", "flightCode": "DS1630", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 76, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "16:30", "flightCode": "DN1630", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 77, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "16:30", "flightCode": "SN1630", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 78, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "16:50", "flightCode": "DS1650", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 79, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "16:50", "flightCode": "SN1650", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 80, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "16:50", "flightCode": "DP1650", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 81, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "17:10", "flightCode": "DS1710", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 82, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "17:10", "flightCode": "DN1710", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 83, "model": "pitcher.flightconfig", "fields": {"arrival": "\u4e09\u4e18\u7530\u7801\u5934", "departureTime": "17:30", "flightCode": "DS1730", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 84, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "17:30", "flightCode": "DN1730", "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"}}, {"pk": 85, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "17:30", "flightCode": "SN1730", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 86, "model": "pitcher.flightconfig", "fields": {"arrival": "\u5185\u539d\u6fb3\u7801\u5934", "departureTime": "17:50", "flightCode": "SN1750", "departure": "\u5d69\u5c7f\u7801\u5934"}}, {"pk": 1, "model": "pitcher.pitchconfig", "fields": {"need": 1, "priority": 2, "task": 2, "flight": 11}}, {"pk": 2, "model": "pitcher.pitchconfig", "fields": {"need": 1, "priority": 2, "task": 1, "flight": 11}}, {"pk": 3, "model": "pitcher.pitchconfig", "fields": {"need": 1, "priority": 1, "task": 2, "flight": 17}}, {"pk": 4, "model": "pitcher.pitchconfig", "fields": {"need": 1, "priority": 1, "task": 1, "flight": 17}}, {"pk": 5, "model": "pitcher.pitchconfig", "fields": {"need": 1, "priority": 0, "task": 2, "flight": 19}}, {"pk": 6, "model": "pitcher.pitchconfig", "fields": {"need": 1, "priority": 0, "task": 1, "flight": 19}}]
+[
+{
+  "pk": 1, 
+  "model": "pitcher.task", 
+  "fields": {
+    "username": "xmjf001", 
+    "taskName": "p1", 
+    "password": "2592527", 
+    "type": "pitch", 
+    "working": true
+  }
+},
+{
+  "pk": 2, 
+  "model": "pitcher.task", 
+  "fields": {
+    "username": "jfgl002", 
+    "taskName": "p2", 
+    "password": "2592527", 
+    "type": "pitch", 
+    "working": true
+  }
+},
+{
+  "pk": 1, 
+  "model": "pitcher.systemconfig", 
+  "fields": {
+    "maxException": 5, 
+    "normalWaitingSecond": 2, 
+    "preceding": 15, 
+    "maxLoginError": 5, 
+    "errorWaitingSecond": 5, 
+    "timeToStop": "12:00"
+  }
+},
+{
+  "pk": 1, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "07:10", 
+    "flightCode": "DS0710", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 2, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "07:10", 
+    "flightCode": "DN0710", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 3, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "07:30", 
+    "flightCode": "DS0730", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 4, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "07:30", 
+    "flightCode": "DN0730", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 5, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "07:30", 
+    "flightCode": "SN0730", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 6, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "07:50", 
+    "flightCode": "DS0750", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 7, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "07:50", 
+    "flightCode": "SN0750", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 8, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "07:50", 
+    "flightCode": "DP0750", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 9, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "08:10", 
+    "flightCode": "DS0810", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 10, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "08:10", 
+    "flightCode": "DN0810", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 11, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "08:30", 
+    "flightCode": "DS0830", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 12, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "08:30", 
+    "flightCode": "DN0830", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 13, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "08:30", 
+    "flightCode": "SN0830", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 14, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "08:50", 
+    "flightCode": "DS0850", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 15, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "08:50", 
+    "flightCode": "SN0850", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 16, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "08:50", 
+    "flightCode": "DP0850", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 17, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "09:10", 
+    "flightCode": "DS0910", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 18, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "09:10", 
+    "flightCode": "DN0910", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 19, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "09:30", 
+    "flightCode": "DS0930", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 20, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "09:30", 
+    "flightCode": "DN0930", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 21, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "09:30", 
+    "flightCode": "SN0930", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 22, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "09:50", 
+    "flightCode": "DS0950", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 23, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "09:50", 
+    "flightCode": "SN0950", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 24, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "09:50", 
+    "flightCode": "DP0950", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 25, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "10:10", 
+    "flightCode": "DS1010", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 26, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "10:10", 
+    "flightCode": "DN1010", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 27, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "10:30", 
+    "flightCode": "DS1030", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 28, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "10:30", 
+    "flightCode": "DN1030", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 29, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "10:30", 
+    "flightCode": "SN1030", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 30, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "10:50", 
+    "flightCode": "DS1050", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 31, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "10:50", 
+    "flightCode": "SN1050", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 32, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "10:50", 
+    "flightCode": "DP1050", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 33, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "11:10", 
+    "flightCode": "DS1110", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 34, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "11:10", 
+    "flightCode": "DN1110", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 35, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "11:30", 
+    "flightCode": "DS1130", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 36, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "11:30", 
+    "flightCode": "DN1130", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 37, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "11:30", 
+    "flightCode": "SN1130", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 38, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "11:50", 
+    "flightCode": "DS1150", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 39, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "11:50", 
+    "flightCode": "SN1150", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 40, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "11:50", 
+    "flightCode": "DP1150", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 41, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "12:10", 
+    "flightCode": "DS1210", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 42, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "12:10", 
+    "flightCode": "DN1210", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 43, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "12:30", 
+    "flightCode": "DS1230", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 44, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "12:30", 
+    "flightCode": "DN1230", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 45, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "12:30", 
+    "flightCode": "SN1230", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 46, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "12:50", 
+    "flightCode": "DS1250", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 47, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "12:50", 
+    "flightCode": "SN1250", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 48, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "12:50", 
+    "flightCode": "DP1250", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 49, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "13:10", 
+    "flightCode": "DS1310", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 50, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "13:10", 
+    "flightCode": "DN1310", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 51, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "13:30", 
+    "flightCode": "DS1330", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 52, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "13:30", 
+    "flightCode": "DN1330", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 53, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "13:30", 
+    "flightCode": "SN1330", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 54, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "13:50", 
+    "flightCode": "DS1350", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 55, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "13:50", 
+    "flightCode": "SN1350", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 56, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "13:50", 
+    "flightCode": "DP1350", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 57, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "14:10", 
+    "flightCode": "DS1410", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 58, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "14:10", 
+    "flightCode": "DN1410", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 59, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "14:30", 
+    "flightCode": "DS1430", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 60, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "14:30", 
+    "flightCode": "DN1430", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 61, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "14:30", 
+    "flightCode": "SN1430", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 62, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "14:50", 
+    "flightCode": "DS1450", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 63, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "14:50", 
+    "flightCode": "SN1450", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 64, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "14:50", 
+    "flightCode": "DP1450", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 65, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "15:10", 
+    "flightCode": "DS1510", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 66, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "15:10", 
+    "flightCode": "DN1510", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 67, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "15:30", 
+    "flightCode": "DS1530", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 68, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "15:30", 
+    "flightCode": "DN1530", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 69, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "15:30", 
+    "flightCode": "SN1530", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 70, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "15:50", 
+    "flightCode": "DS1550", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 71, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "15:50", 
+    "flightCode": "SN1550", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 72, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "15:50", 
+    "flightCode": "DP1550", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 73, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "16:10", 
+    "flightCode": "DS1610", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 74, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "16:10", 
+    "flightCode": "DN1610", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 75, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "16:30", 
+    "flightCode": "DS1630", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 76, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "16:30", 
+    "flightCode": "DN1630", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 77, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "16:30", 
+    "flightCode": "SN1630", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 78, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "16:50", 
+    "flightCode": "DS1650", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 79, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "16:50", 
+    "flightCode": "SN1650", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 80, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "16:50", 
+    "flightCode": "DP1650", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 81, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "17:10", 
+    "flightCode": "DS1710", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 82, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "17:10", 
+    "flightCode": "DN1710", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 83, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "17:30", 
+    "flightCode": "DS1730", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 84, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "17:30", 
+    "flightCode": "DN1730", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 85, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "17:30", 
+    "flightCode": "SN1730", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 86, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u5185\u539d\u6fb3\u7801\u5934", 
+    "departureTime": "17:50", 
+    "flightCode": "SN1750", 
+    "departure": "\u5d69\u5c7f\u7801\u5934"
+  }
+},
+{
+  "pk": 87, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "09:10", 
+    "flightCode": "DS0910-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 88, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "10:10", 
+    "flightCode": "DS1010-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 89, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "09:50", 
+    "flightCode": "DS0950-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 90, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "10:50", 
+    "flightCode": "DS1050-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 91, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "08:50", 
+    "flightCode": "DS0850-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 92, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "08:10", 
+    "flightCode": "DS0810-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 93, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "07:50", 
+    "flightCode": "DS0750-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 94, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "07:10", 
+    "flightCode": "DS0710-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 95, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "11:10", 
+    "flightCode": "DS1110-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 96, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "11:50", 
+    "flightCode": "DS1150-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 97, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "12:10", 
+    "flightCode": "DS1210-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 98, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "12:50", 
+    "flightCode": "DS1250-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 99, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "13:10", 
+    "flightCode": "DS1310-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 100, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "13:50", 
+    "flightCode": "DS1350-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 101, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "14:10", 
+    "flightCode": "DS1410-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 102, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "14:50", 
+    "flightCode": "DS1450-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 103, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "15:10", 
+    "flightCode": "DS1510-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 104, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "15:50", 
+    "flightCode": "DS1550-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 105, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "16:10", 
+    "flightCode": "DS1610-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 106, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "16:50", 
+    "flightCode": "DS1650-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 107, 
+  "model": "pitcher.flightconfig", 
+  "fields": {
+    "arrival": "\u4e09\u4e18\u7530\u7801\u5934", 
+    "departureTime": "17:10", 
+    "flightCode": "DS1710-1", 
+    "departure": "\u90ae\u8f6e\u4e2d\u5fc3\u53a6\u9f13\u7801\u5934"
+  }
+},
+{
+  "pk": 22, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 0, 
+    "task": 1, 
+    "flight": 14
+  }
+},
+{
+  "pk": 24, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 1, 
+    "task": 1, 
+    "flight": 22
+  }
+},
+{
+  "pk": 26, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 0, 
+    "task": 2, 
+    "flight": 87
+  }
+},
+{
+  "pk": 27, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 1, 
+    "task": 2, 
+    "flight": 88
+  }
+},
+{
+  "pk": 30, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 2, 
+    "task": 1, 
+    "flight": 30
+  }
+},
+{
+  "pk": 31, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 3, 
+    "task": 1, 
+    "flight": 54
+  }
+},
+{
+  "pk": 32, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 3, 
+    "task": 2, 
+    "flight": 16
+  }
+},
+{
+  "pk": 33, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 2, 
+    "task": 2, 
+    "flight": 24
+  }
+},
+{
+  "pk": 34, 
+  "model": "pitcher.pitchconfig", 
+  "fields": {
+    "need": 1, 
+    "priority": 4, 
+    "task": 2, 
+    "flight": 32
+  }
+}
+]
