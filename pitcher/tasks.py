@@ -130,6 +130,9 @@ class PitchTask():
         '''
         ItemMessage = u'尝试抢票(航班号:%s,需票数:%d):' % (flightCode, need)
         self.writeSystemLog(ItemMessage + u'开始...')
+        if need == 0:
+            self.writeSystemLog(ItemMessage + u'出错: 需票数为0')
+            return 0
         # 读取票数剩余
         remain = self.getTicketRemain(ticketInfo, flightCode)
         # 如果该航班没有票跳过
