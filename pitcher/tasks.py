@@ -115,7 +115,7 @@ class PitchTask():
         #df = ticketInfo[ticketInfo[u'航班号'] == flightCode]
         df = ticketInfo[ ticketInfo[u'航班号'].apply(lambda x : x.startswith(flightCode)) ]
         if len(df.index) > 0:
-            return int(df.irow(0)[u'航班ID'])
+            return df.irow(0)[u'航班ID'][1:-1]
         else:
             return None
 
