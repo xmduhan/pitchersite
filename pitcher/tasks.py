@@ -20,6 +20,8 @@ from docx import Document
 from docx.shared import Inches
 from BeautifulSoup import BeautifulSoup
 from time import sleep
+from django.conf import settings
+from mail import send_mail
 
 
 class PitchTask():
@@ -255,7 +257,6 @@ class PitchTask():
         c1 = reserveInfo[u'状态'] == u'未确认'
         c2 = reserveInfo[u'最后确认时间'].apply(parser.parse) > datetime.now()
         reserveInfo = reserveInfo[c1 & c2]
-
         document = Document()
         for i, row in reserveInfo.iterrows():
             document.add_heading(u'票项%d' % (i + 1), level=1)
@@ -273,6 +274,10 @@ class PitchTask():
             time.sleep(self.normalWaitingSecond)
         filename = tempfile.mktemp(suffix='.docx',prefix='tmp_')
         document.save(filename)
+
+        # 发送邮件
+        title = '%s[%s]' % (self.username, datetime.strftime(datetime.now(), "%Y-%m-%d"))
+        send_mail(settings.MAIL_LIST, title, u'见附件', [filename])
 
     def run(self):
         '''
