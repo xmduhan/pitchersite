@@ -260,8 +260,8 @@ class PitchTask():
         c2 = reserveInfo[u'最后确认时间'].apply(parser.parse) > datetime.now()
         reserveInfo = reserveInfo[c1 & c2]
         document = Document()
+        document.add_heading(title)
         for i, row in reserveInfo.iterrows():
-            document.add_heading(title)
             document.add_heading(u'票项%d' % (i + 1), level=1)
             document.add_paragraph(text=u'航线: ' + row[u'航线'])
             document.add_paragraph(text=u'航班时间: ' + row[u'航班时间'])
