@@ -28,7 +28,6 @@ def send_mail(receivers, title, content, attachments=[]):
     '''
     try:
         home = os.path.expanduser('~')
-        print home
         profile = os.path.join(home, '.send_mail_profile')
         config = dict(line.strip().split('=') for line in open(profile) if line.find('=') != -1)
         stmp_server = config['stmp_server']
