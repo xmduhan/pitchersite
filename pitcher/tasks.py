@@ -253,12 +253,15 @@ class PitchTask():
 
     def exportPayInfo(self):
         """ 导出出付费信息 """
+
+        title = '%s[%s]' % (self.username, datetime.strftime(datetime.now(), "%Y-%m-%d"))
         reserveInfo = pitcher.getReserveInfo()
         c1 = reserveInfo[u'状态'] == u'未确认'
         c2 = reserveInfo[u'最后确认时间'].apply(parser.parse) > datetime.now()
         reserveInfo = reserveInfo[c1 & c2]
         document = Document()
         for i, row in reserveInfo.iterrows():
+            document.add_heading(title)
             document.add_heading(u'票项%d' % (i + 1), level=1)
             document.add_paragraph(text=u'航线: ' + row[u'航线'])
             document.add_paragraph(text=u'航班时间: ' + row[u'航班时间'])
@@ -272,11 +275,10 @@ class PitchTask():
                 f.write(qrcode)
             document.add_picture(filename, width=Inches(1))
             time.sleep(self.normalWaitingSecond)
-        filename = tempfile.mktemp(suffix='.docx',prefix='tmp_')
+        filename = tempfile.mktemp(suffix='.docx',prefix=title + '_')
         document.save(filename)
 
         # 发送邮件
-        title = '%s[%s]' % (self.username, datetime.strftime(datetime.now(), "%Y-%m-%d"))
         send_mail(settings.MAIL_LIST, title, u'见附件', [filename])
 
     def run(self):
