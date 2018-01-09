@@ -15,6 +15,12 @@ from pandas import DataFrame
 from dateutil import parser
 from django_pandas.io import read_frame
 
+import tempfile
+from docx import Document
+from docx.shared import Inches
+from BeautifulSoup import BeautifulSoup
+from time import sleep
+
 
 class PitchTask():
     '''
@@ -243,6 +249,31 @@ class PitchTask():
         self.writeSystemLog(u'登录信息丢失将尝试重新登录.')
         return True
 
+    def exportPayInfo(self):
+        """ 导出出付费信息 """
+        reserveInfo = pitcher.getReserveInfo()
+        c1 = reserveInfo[u'状态'] == u'未确认'
+        c2 = reserveInfo[u'最后确认时间'].apply(parser.parse) > datetime.now()
+        reserveInfo = reserveInfo[c1 & c2]
+
+        document = Document()
+        for i, row in reserveInfo.iterrows():
+            document.add_heading(u'票项%d' % (i + 1), level=1)
+            document.add_paragraph(text=u'航线: ' + row[u'航线'])
+            document.add_paragraph(text=u'航班时间: ' + row[u'航班时间'])
+            document.add_paragraph(text=u'人数: ' + row[u'人数'])
+            document.add_paragraph(text=u'金额: ' + row[u'金额'])
+            document.add_paragraph(text=u'最后确认时间: ' + row[u'最后确认时间'])
+            filename = tempfile.mktemp(suffix='.jpg',prefix='tmp_')
+            with open(filename, 'wb') as f:
+                orderNumber = pitcher.getOrderNumber(row[u'预订ID'])
+                qrcode = pitcher.getWeixinPayQrcode(orderNumber)
+                f.write(qrcode)
+            document.add_picture(filename, width=Inches(1))
+            time.sleep(self.normalWaitingSecond)
+        filename = tempfile.mktemp(suffix='.docx',prefix='tmp_')
+        document.save(filename)
+
     def run(self):
         '''
         抢票程序主过程
@@ -283,6 +314,19 @@ class PitchTask():
                     break
                 self.writeSystemLog(u'等待%s秒... ...' % self.errorWaitingSecond)
                 time.sleep(self.errorWaitingSecond)
+
+
+        # 开始导出支付清单
+        for i in range(5):
+            try:
+                self.exportPayInfo()
+                self.writeSystemLog(u'导出支付清单成功!')
+                break
+            except Exception:
+                loginResult = self.login(self.username, self.password)
+        else:
+            self.writeSystemLog(u'导出支付清单失败!')
+
 
         self.writeSystemLog(u'程序执行结束!')
 
