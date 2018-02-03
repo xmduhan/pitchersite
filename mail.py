@@ -56,7 +56,8 @@ def send_mail(receivers, title, content, attachments=[]):
     message['subject'] = title
 
     # Send mail
-    smtp = smtplib.SMTP(stmp_server, stmp_port)
+    # smtp = smtplib.SMTP(stmp_server, stmp_port)
+    smtp = smtplib.SMTP_SSL(stmp_server, stmp_port)
     smtp.login(stmp_user, stmp_password)
     smtp.sendmail(stmp_sender, receivers, message.as_string())
     smtp.quit()
